@@ -6,6 +6,8 @@ SDL_Renderer* background = nullptr;
 SDL_Rect wall[SCREEN_HEIGHT / rect_height][SCREEN_WIDTH / rect_width];
 int visited[cntheight][cntwidth];
 int dir[4] = {0, 1, 2, 3};
+int rannum;
+ii endgame;
 
 void quitSDL(){
     SDL_DestroyRenderer(g_render);
@@ -14,6 +16,8 @@ void quitSDL(){
 }
 
 bool initdata(){
+    srand(time(0));
+    rannum = rand() % 30;
     bool success = 1;
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -64,38 +68,40 @@ void fillscreen(SDL_Renderer* screen){
     for(int i = 1; i < cntheight - 1; i ++)
        for(int j = 1; j < cntwidth - 1; j ++){
             if(visited[i][j]) continue;
-            SDL_SetRenderDrawColor( screen, 0, 0, 0, 0xFF );
+            SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
             SDL_RenderFillRect(g_render, &wall[i][j]);
-            //SDL_RenderPresent( g_render );
        }
     for(int i = 0; i < cntheight; i ++){
-        //visited[i][0] = visited[i][cntwidth - 1] = 1;
-        SDL_SetRenderDrawColor( screen, 0, 0xFF, 0, 0xFF );
+        SDL_SetRenderDrawColor( screen, color_border[0], color_border[1], color_border[2], color_border[3]);
         SDL_RenderFillRect(screen, &wall[i][0]);
         SDL_RenderFillRect(screen, &wall[i][cntwidth - 1]);
     }
 
     for(int i = 0; i < cntwidth; i ++){
-        //visited[0][i] = visited[cntheight - 1][i] = 1;
-        SDL_SetRenderDrawColor( screen, 0, 0xFF, 0, 0xFF );
+        SDL_SetRenderDrawColor( screen, color_border[0], color_border[1], color_border[2], color_border[3]);
         SDL_RenderFillRect(screen, &wall[0][i]);
         SDL_RenderFillRect(screen, &wall[cntheight - 1][i]);
     }
 }
 
 void maze(SDL_Renderer* screen){
-    ii endd = {0, 0};
+    endgame = {0, 0};
     vector<ii> st;
     st.push_back({1, 1});
-    srand(time(0));
+    srand(rannum);
     int cnt = rand()% 100;
+
+    // visited[x][y] = 1 -> road
+    // visited[x][y] = 0 -> wall
+
     fillscreen(screen);
+
     while(st.size()){
         srand(cnt ++);
         ii current = st.back();
         st.pop_back();
 
-        SDL_SetRenderDrawColor( screen, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_SetRenderDrawColor( screen, color_road[0], color_road[1], color_road[2], color_road[3]);
         SDL_RenderFillRect(screen, &wall[current.first][current.second]);
 
         visited[current.first][current.second] = 1;
@@ -116,38 +122,25 @@ void maze(SDL_Renderer* screen){
             if(!inmaze(x2, y2)) continue;
             if(visited[x2][y2]) continue;
             visited[x2][y2] = 1;
-            //st.push_back({current.first, current.second});
 
-            SDL_SetRenderDrawColor( screen, 0xFF, 0xFF, 0xFF, 0xFF );
+            SDL_SetRenderDrawColor( screen, color_road[0], color_road[1], color_road[2], color_road[3]);
             SDL_RenderFillRect(screen, &wall[x2 - dx][y2 - dy]);
             visited[x2 - dx][y2 - dy] = 1;
             st.push_back({x2, y2});
         }
     }
 
-    if(endd == ii(0, 0)){
-        vector<int> tmpx;
-        vector<int> tmpy;
-        for(int i = cntheight / 2; i < cntheight - 1; i ++)
-           for(int j = 1; j < cntwidth - 1; j ++){
+    if(endgame == ii(0, 0)){
+        vector<ii> tmp;
+        for(int i = cntheight / 2; i < cntheight; i ++)
+           for(int j = 1; j < cntwidth; j ++){
                 if(!visited[i][j]) continue;
-                tmpx.push_back(i);
-                tmpy.push_back(j);
+                tmp.push_back({i, j});
            }
-        int kx = rand() % (tmpx.size());
-        kx = tmpx[kx];
-        int ky = rand() % (tmpy.size());
-        ky = tmpy[ky];
-        SDL_SetRenderDrawColor( screen, 0, 0, 255, 0xFF );
-        SDL_RenderFillRect(screen, &wall[kx][ky]);
-        endd = {kx, ky};
-    }
-    for(int i = 0; i < cntheight; i ++){
-        visited[i][0] = visited[i][cntwidth - 1] = 1;
-    }
-
-    for(int i = 0; i < cntwidth; i ++){
-        visited[0][i] = visited[cntheight - 1][i] = 1;
+        int k = rand() % (tmp.size());
+        SDL_SetRenderDrawColor(screen, color_des[0], color_des[1], color_des[2], color_des[3]);
+        SDL_RenderFillRect(screen, &wall[tmp[k].first][tmp[k].second]);
+        endgame = {tmp[k].first, tmp[k].second};
     }
 }
 

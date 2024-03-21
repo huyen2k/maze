@@ -19,9 +19,17 @@ const int SCREEN_HEIGHT = 760;
 const int rect_width = 16;
 const int rect_height = 16;
 
+const int color_wall[4] = {0, 0, 0, 1};
+const int color_road[4] = {255, 255, 255, 1};
+const int color_border[4] = {158, 13, 5, 1};
+const int color_des[4] = {66, 92, 230, 1};
+
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;
 const int COLOR_KEY_B = 255;
+
+extern int rannum;
+extern ii endgame;
 
 enum{
     up,

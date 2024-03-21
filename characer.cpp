@@ -5,6 +5,7 @@ SDL_Rect running_clip[total][cnt_frame];
 int step_x = 0, step_y = 0;
 int current_x = 1, current_y = 1;
 
+
 void init_data(){
     for(int type = 0; type < total; type ++){
         int cnt = 0;
@@ -33,11 +34,8 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
     SDL_Surface* load_surface = IMG_Load(path.c_str());
 
     if(load_surface != nullptr){
-        //printf("checking renderer %s\n", screen);
         SDL_SetColorKey(load_surface, SDL_TRUE, SDL_MapRGB(load_surface->format, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B));
         new_texture = SDL_CreateTextureFromSurface(screen, load_surface);
-        //printf("checking renderer %s\n", screen);
-        //printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
         SDL_FreeSurface(load_surface);
     }
     Texture_ = new_texture;
@@ -45,8 +43,6 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
 }
 
 void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
-    //Set rendering space and render to screen
-    //printf("type is %d\n", type);
     bool ok = 1;
     switch (type){
         case 0:
@@ -63,25 +59,20 @@ void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
             break;
     }
     SDL_Rect renderQuad = wall[x][y];
-    //printf("load image %d\n", ok);
-    //cout << renderQuad.x << " " << renderQuad.y << '\n';
 
     //Render to screen
     SDL_RenderCopy(screen, Texture_, clip, &renderQuad);
-    //printf("checking renderer %s\n", screen);
-    //printf("checking texture %s\n", Texture_);
 }
 
 void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
     SDL_SetRenderDrawColor(g_render, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, 0xFF );
-//    SDL_RenderClear(screen);
-    SDL_RenderPresent(screen);
+    SDL_RenderClear(screen);
+    maze(screen);
 
     SDL_Rect* currentClip = &running_clip[type][ frame / 4 ];
     Render(screen, current_x, current_y, currentClip);
-    printf("%d %d\n", current_x, current_y);
 
     SDL_RenderPresent(screen);
     //Go to next frame
@@ -95,6 +86,8 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
 }
 
 void characer::handinput(SDL_Event e){
+    // do di theo bang 2D nen current_x -> row
+    // do di theo bang 2D nen current_y -> col
     step_x = 0, step_y = 0;
     if(e.type == SDL_KEYDOWN){
         switch (e.key.keysym.sym){
@@ -134,5 +127,6 @@ void characer::handinput(SDL_Event e){
 //    }
     current_x += step_x;
     current_y += step_y;
-    if(!visited[current_x][current_y]) current_x -= step_x, current_y -= step_y;
+    if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
+       current_y == 0 || current_y == cntwidth - 1) current_x -= step_x, current_y -= step_y;
 }

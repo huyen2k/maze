@@ -11,7 +11,6 @@ int main(int argc, char ** argv)
     }
     characer main_character;
     basic_wall();
-    maze(g_render);
     main_character.init_data();
     bool quit = 0;
     SDL_Event e;
@@ -22,7 +21,7 @@ int main(int argc, char ** argv)
             main_character.handinput(e);
         }
         main_character.runAnimation(g_render, e);
-        SDL_RenderPresent( g_render );
+        SDL_RenderPresent(g_render);
 
     }
     return 0;

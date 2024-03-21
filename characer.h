@@ -13,9 +13,20 @@ class characer
         characer();
         ~characer();
 
-        SDL_Texture* Get_Texture() const {return Texture_;};
+        void init_data(){
+            for(int type = 0; type < total; type ++){
+                int cnt = 0;
+                for(int i = 0; i < cnt_frame; i ++){
+                    running_clip[type][i].x = cnt;
+                    running_clip[type][i].y = 0;
+                    running_clip[type][i].w = rect_width;
+                    running_clip[type][i].h = rect_height;
+                    cnt += rect_width;
+                }
+            }
+        }
 
-        SDL_Rect GetRect() const { return rect_;}
+        SDL_Texture* Get_Texture() const {return Texture_;};
 
         bool LoadImage(std::string path, SDL_Renderer* screen);
 
@@ -29,13 +40,10 @@ class characer
 
         void handrun(SDL_Renderer* screen);
 
-        void init_data(){};
-
         int type;
 
     private:
         SDL_Texture* Texture_;
-        SDL_Rect rect_;
 };
 
 #endif // CHARACER_H

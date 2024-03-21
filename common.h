@@ -11,6 +11,7 @@ using ii = pair<int, int>;
 
 extern SDL_Window* g_window;
 extern SDL_Renderer* g_render;
+extern SDL_Renderer* background;
 
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;
@@ -43,10 +44,11 @@ extern SDL_Rect running_clip[total][cnt_frame];
 extern int step_x, step_y;
 extern int current_x, current_y;
 
+void quitSDL();
 bool initdata();
 void basic_wall();
 bool inmaze(int x, int y);
 void fillscreen();
-void maze();
+void maze(SDL_Renderer* screen);
 
 #endif // COMMON_H

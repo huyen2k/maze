@@ -8,7 +8,7 @@ int current_x = 1, current_y = 1;
 void init_data(){
     for(int type = 0; type < total; type ++){
         int cnt = 0;
-        for(int i = 0; i < 6; i ++){
+        for(int i = 0; i < cnt_frame; i ++){
             running_clip[type][i].x = cnt;
             running_clip[type][i].y = 0;
             running_clip[type][i].w = rect_width;
@@ -38,10 +38,6 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
         new_texture = SDL_CreateTextureFromSurface(screen, load_surface);
         //printf("checking renderer %s\n", screen);
         //printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-        if(new_texture != nullptr){
-            rect_.w = load_surface->w;
-            rect_.h = load_surface->h;
-        }
         SDL_FreeSurface(load_surface);
     }
     Texture_ = new_texture;
@@ -50,42 +46,47 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
 
 void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
     //Set rendering space and render to screen
+    //printf("type is %d\n", type);
+    bool ok = 1;
     switch (type){
         case 0:
-            LoadImage(frame_up, screen);
+            ok &= LoadImage(frame_up, screen);
             break;
         case 1:
-            LoadImage(frame_left, screen);
+            ok &= LoadImage(frame_left, screen);
             break;
         case 2:
-            LoadImage(frame_down, screen);
+            ok &= LoadImage(frame_down, screen);
             break;
         case 3:
-            LoadImage(frame_right, screen);
+            ok &= LoadImage(frame_right, screen);
             break;
     }
     SDL_Rect renderQuad = wall[x][y];
+    //printf("load image %d\n", ok);
     //cout << renderQuad.x << " " << renderQuad.y << '\n';
 
     //Render to screen
     SDL_RenderCopy(screen, Texture_, clip, &renderQuad);
-    printf("checking renderer %s\n", screen);
+    //printf("checking renderer %s\n", screen);
+    //printf("checking texture %s\n", Texture_);
 }
 
 void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
     SDL_SetRenderDrawColor(g_render, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, 0xFF );
-    SDL_RenderClear(screen);
+//    SDL_RenderClear(screen);
+    SDL_RenderPresent(screen);
 
     SDL_Rect* currentClip = &running_clip[type][ frame / 4 ];
-    Render(screen, current_x, current_x, currentClip);
-    //printf("%d %d\n", current_x, current_y);
+    Render(screen, current_x, current_y, currentClip);
+    printf("%d %d\n", current_x, current_y);
 
-    SDL_RenderPresent(g_render);
+    SDL_RenderPresent(screen);
     //Go to next frame
     ++frame;
-    //printf("frame is %d\n", frame);
+
     //Cycle animation
     if(frame / 4 >= cnt_frame)
     {
@@ -94,45 +95,43 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
 }
 
 void characer::handinput(SDL_Event e){
+    step_x = 0, step_y = 0;
     if(e.type == SDL_KEYDOWN){
         switch (e.key.keysym.sym){
-            case SDLK_w:
-                step_y -= 1;
+            case SDLK_UP:
+                step_x -= 1;
                 type = 0;
                 break;
-            case SDLK_s:
-                step_y += 1;
+            case SDLK_DOWN:
+                step_x += 1;
                 type = 2;
                 break;
-            case SDLK_a:
-                step_x -= 1;
+            case SDLK_RIGHT:
+                step_y += 1;
                 type = 3;
                 break;
-            case SDLK_d:
-                step_x += 1;
+            case SDLK_LEFT:
+                step_y -= 1;
                 type = 1;
                 break;
         }
     }
-    else if(e.type == SDL_KEYUP){
-        switch (e.key.keysym.sym){
-            case SDLK_w:
-                step_y += 1;
-                break;
-            case SDLK_s:
-                step_y -= 1;
-                break;
-            case SDLK_a:
-                step_x += 1;
-                break;
-            case SDLK_d:
-                step_x -= 1;
-                break;
-        }
-    }
-}
-
-void characer::handrun(SDL_Renderer* screen){
+//    else if(e.type == SDL_KEYUP){
+//        switch (e.key.keysym.sym){
+//            case SDLK_UP:
+//                step_y += 1;
+//                break;
+//            case SDLK_DOWN:
+//                step_y -= 1;
+//                break;
+//            case SDLK_LEFT:
+//                step_x += 1;
+//                break;
+//            case SDLK_RIGHT:
+//                step_x -= 1;
+//                break;
+//        }
+//    }
     current_x += step_x;
     current_y += step_y;
     if(!visited[current_x][current_y]) current_x -= step_x, current_y -= step_y;

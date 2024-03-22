@@ -16,8 +16,9 @@ extern SDL_Renderer* background;
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;
 
-const int rect_width = 16;
-const int rect_height = 16;
+const int roundplay = 3;
+const int rect_width[roundplay] = {36, 26, 16};
+const int rect_height[roundplay] = {36, 26, 16};
 
 const int color_wall[4] = {0, 0, 0, 1};
 const int color_road[4] = {255, 255, 255, 1};
@@ -28,8 +29,9 @@ const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;
 const int COLOR_KEY_B = 255;
 
-extern int rannum;
-extern ii endgame;
+extern int rannum; //seed rand maze
+extern ii endgame; //pos which game win
+extern int round_in; //round you are in
 
 enum{
     up,
@@ -38,23 +40,22 @@ enum{
     right,
     total,
 };
-
-const int cntheight = SCREEN_HEIGHT / rect_height;
-const int cntwidth = SCREEN_WIDTH / rect_width;
-
-extern int visited[cntheight][cntwidth];
 extern int dir[4];
-extern SDL_Rect wall[cntheight][cntwidth];
+
+extern int cntheight;
+extern int cntwidth;
+
+extern vector<vector<int> > visited;
+extern vector<vector<SDL_Rect> > wall;
 
 const int cnt_frame = 3;
 
-extern SDL_Rect running_clip[total][cnt_frame];
-extern int step_x, step_y;
-extern int current_x, current_y;
+extern SDL_Rect running_clip[roundplay][total][cnt_frame];
+extern int game_round;
 
 void quitSDL();
+void change_size();
 bool initdata();
-void basic_wall();
 bool inmaze(int x, int y);
 void fillscreen();
 void maze(SDL_Renderer* screen);

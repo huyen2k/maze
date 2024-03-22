@@ -2,17 +2,43 @@
 
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_render = nullptr;
-SDL_Renderer* background = nullptr;
-SDL_Rect wall[SCREEN_HEIGHT / rect_height][SCREEN_WIDTH / rect_width];
-int visited[cntheight][cntwidth];
+vector<vector<int> > visited;
+vector<vector<SDL_Rect> > wall;
+int cntheight, cntwidth;
 int dir[4] = {0, 1, 2, 3};
 int rannum;
 ii endgame;
+int round_in = 0;
+
+void change_size(){
+    cntheight = SCREEN_HEIGHT / rect_height[round_in];
+    cntwidth = SCREEN_WIDTH / rect_width[round_in];
+    visited.resize(cntheight, vector<int> (cntwidth));
+    for(int i = 0; i < cntheight; i ++)
+        for(int j = 0; j < cntwidth; j ++)
+        visited[i][j] = 0;
+    wall.resize(cntheight, vector<SDL_Rect> (cntwidth));
+    int xx = 0, yy = 0;
+    for(int i = 0; i < cntheight; i ++){
+        xx = 0;
+        for(int j = 0; j < cntwidth; j ++){
+            wall[i][j].x = xx;
+            wall[i][j].y = yy;
+            wall[i][j].h = rect_height[round_in];
+            wall[i][j].w = rect_width[round_in];
+            xx += rect_width[round_in];
+            //std::cout << i << " " << j << " " << wall[i][j].x << " " << wall[i][j].y << '\n';
+        }
+        yy += rect_height[round_in];
+    }
+}
 
 void quitSDL(){
     SDL_DestroyRenderer(g_render);
     SDL_DestroyWindow(g_window);
     SDL_Quit();
+    g_render = nullptr;
+    g_window = nullptr;
 }
 
 bool initdata(){
@@ -32,30 +58,6 @@ bool initdata(){
         }
     }
     return success;
-}
-
-void basic_wall(){
-    int xx = 0, yy = 0;
-    for(int i = 0; i < cntheight; i ++){
-        xx = 0;
-        for(int j = 0; j < cntwidth; j ++){
-            wall[i][j].x = xx;
-            wall[i][j].y = yy;
-            wall[i][j].h = rect_height;
-            wall[i][j].w = rect_width;
-            xx += rect_width;
-            //std::cout << i << " " << j << " " << wall[i][j].x << " " << wall[i][j].y << '\n';
-        }
-        yy += rect_height;
-    }
-    memset(visited, 0, sizeof(visited));
-    for(int i = 0; i < cntheight; i ++){
-        visited[i][0] = visited[i][cntwidth - 1] = 1;
-    }
-
-    for(int i = 0; i < cntwidth; i ++){
-        visited[0][i] = visited[cntheight - 1][i] = 1;
-    }
 }
 
 bool inmaze(int x, int y){
@@ -87,6 +89,7 @@ void fillscreen(SDL_Renderer* screen){
 void maze(SDL_Renderer* screen){
     endgame = {0, 0};
     vector<ii> st;
+
     st.push_back({1, 1});
     srand(rannum);
     int cnt = rand()% 100;
@@ -103,7 +106,7 @@ void maze(SDL_Renderer* screen){
 
         SDL_SetRenderDrawColor( screen, color_road[0], color_road[1], color_road[2], color_road[3]);
         SDL_RenderFillRect(screen, &wall[current.first][current.second]);
-
+        //printf("Get SDL error %s\n%d %d\n", SDL_GetError(), current.first, current.second);
         visited[current.first][current.second] = 1;
         for(int i = 0; i < 4; i ++){
             int r = rand() % 3;
@@ -122,7 +125,7 @@ void maze(SDL_Renderer* screen){
             if(!inmaze(x2, y2)) continue;
             if(visited[x2][y2]) continue;
             visited[x2][y2] = 1;
-
+            cout << x2 << " " << y2 << '\n';
             SDL_SetRenderDrawColor( screen, color_road[0], color_road[1], color_road[2], color_road[3]);
             SDL_RenderFillRect(screen, &wall[x2 - dx][y2 - dy]);
             visited[x2 - dx][y2 - dy] = 1;
@@ -132,8 +135,8 @@ void maze(SDL_Renderer* screen){
 
     if(endgame == ii(0, 0)){
         vector<ii> tmp;
-        for(int i = cntheight / 2; i < cntheight; i ++)
-           for(int j = 1; j < cntwidth; j ++){
+        for(int i = cntheight / 2; i < cntheight - 1; i ++)
+           for(int j = 1; j < cntwidth - 1; j ++){
                 if(!visited[i][j]) continue;
                 tmp.push_back({i, j});
            }

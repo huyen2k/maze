@@ -1,31 +1,17 @@
 #include "characer.h"
 #include "common.h"
 
-SDL_Rect running_clip[total][cnt_frame];
-int step_x = 0, step_y = 0;
-int current_x = 1, current_y = 1;
-
-
-void init_data(){
-    for(int type = 0; type < total; type ++){
-        int cnt = 0;
-        for(int i = 0; i < cnt_frame; i ++){
-            running_clip[type][i].x = cnt;
-            running_clip[type][i].y = 0;
-            running_clip[type][i].w = rect_width;
-            running_clip[type][i].h = rect_height;
-            cnt += rect_width;
-        }
-    }
-}
+SDL_Rect running_clip[roundplay][total][cnt_frame];
 
 characer::characer(){
     Texture_ = nullptr;
-    type = 1;
+    type = 3;
+    step_x = 0, step_y = 0;
+    current_x = 1, current_y = 1;
 }
 
 characer::~characer(){
-    //dtor
+    SDL_DestroyTexture(Texture_);
 }
 
 bool characer::LoadImage(std::string path, SDL_Renderer* screen){
@@ -43,25 +29,14 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
 }
 
 void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
-    bool ok = 1;
-    switch (type){
-        case 0:
-            ok &= LoadImage(frame_up, screen);
-            break;
-        case 1:
-            ok &= LoadImage(frame_left, screen);
-            break;
-        case 2:
-            ok &= LoadImage(frame_down, screen);
-            break;
-        case 3:
-            ok &= LoadImage(frame_right, screen);
-            break;
+    if(!LoadImage(frame_img[round_in][type], screen)){
+        printf("Have error with image %s\n", SDL_GetError());
     }
     SDL_Rect renderQuad = wall[x][y];
 
     //Render to screen
     SDL_RenderCopy(screen, Texture_, clip, &renderQuad);
+    //printf("check render %s\n", screen);
 }
 
 void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
@@ -71,10 +46,12 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     SDL_RenderClear(screen);
     maze(screen);
 
-    SDL_Rect* currentClip = &running_clip[type][ frame / 4 ];
+    SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ];
     Render(screen, current_x, current_y, currentClip);
 
-    SDL_RenderPresent(screen);
+    printf("postion %d %d\n", current_x, current_y);
+
+//    SDL_RenderPresent(screen);
     //Go to next frame
     ++frame;
 
@@ -109,24 +86,9 @@ void characer::handinput(SDL_Event e){
                 break;
         }
     }
-//    else if(e.type == SDL_KEYUP){
-//        switch (e.key.keysym.sym){
-//            case SDLK_UP:
-//                step_y += 1;
-//                break;
-//            case SDLK_DOWN:
-//                step_y -= 1;
-//                break;
-//            case SDLK_LEFT:
-//                step_x += 1;
-//                break;
-//            case SDLK_RIGHT:
-//                step_x -= 1;
-//                break;
-//        }
-//    }
     current_x += step_x;
     current_y += step_y;
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
        current_y == 0 || current_y == cntwidth - 1) current_x -= step_x, current_y -= step_y;
 }
+

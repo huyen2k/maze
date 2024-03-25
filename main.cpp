@@ -7,6 +7,7 @@ int main(int argc, char ** argv)
 {
     bool out = 0;
     while(!out){
+        if(round_in == 3) break;
         if(!initdata()) {
             cout << "ERROR\n";
             return 0;
@@ -24,10 +25,11 @@ int main(int argc, char ** argv)
                 if(e.type == SDL_QUIT) quit = 1, out = 1;
                 main_character.handinput(e);
             }
-            //printf("round in %d\n", round_in);
+
             main_character.runAnimation(g_render, e);
-            //printf("round in %d\n", round_in);
+
             SDL_RenderPresent(g_render);
+
             if(main_character.check_win()) quit = 1;
         }
         SDL_RenderClear(g_render);

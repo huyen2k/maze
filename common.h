@@ -20,10 +20,10 @@ const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
 
-const int color_wall[4] = {0, 0, 0, 1};
-const int color_road[4] = {255, 255, 255, 1};
-const int color_border[4] = {158, 13, 5, 1};
-const int color_des[4] = {66, 92, 230, 1};
+const int color_wall[4] = {235, 223, 235, 1};
+const int color_road[4] = {7, 5, 68, 1};
+const int color_border[4] = {235, 223, 235, 1};
+const int color_des[4] = {242, 2, 49, 1};
 
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;

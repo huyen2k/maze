@@ -42,14 +42,12 @@ void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
 void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
-    SDL_SetRenderDrawColor(g_render, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B, 0xFF );
+    SDL_SetRenderDrawColor(g_render, color_road[0], color_road[1], color_road[2], color_road[3] );
     SDL_RenderClear(screen);
     maze(screen);
 
     SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ];
     Render(screen, current_x, current_y, currentClip);
-
-    printf("postion %d %d\n", current_x, current_y);
 
 //    SDL_RenderPresent(screen);
     //Go to next frame

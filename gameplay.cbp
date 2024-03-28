@@ -34,10 +34,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.h" />
 		<Unit filename="characer.cpp" />
 		<Unit filename="characer.h" />
 		<Unit filename="common.cpp" />
 		<Unit filename="common.h" />
+		<Unit filename="ghost.cpp" />
+		<Unit filename="ghost.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

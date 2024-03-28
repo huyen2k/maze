@@ -34,15 +34,11 @@ class characer
 
         bool LoadImage(std::string path, SDL_Renderer* screen);
 
-        void Render(SDL_Renderer* des, const SDL_Rect* clip = nullptr);
-
         void Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip);
 
         void runAnimation(SDL_Renderer* screen, SDL_Event event);
 
         void handinput(SDL_Event e);
-
-        void handrun(SDL_Renderer* screen);
 
         bool check_win(){
             return (current_x == endgame.first && current_y == endgame.second);

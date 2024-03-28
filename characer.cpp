@@ -42,11 +42,8 @@ void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
 void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
-    SDL_SetRenderDrawColor(g_render, color_road[0], color_road[1], color_road[2], color_road[3] );
-    SDL_RenderClear(screen);
-    maze(screen);
 
-    SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ];
+    SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ]; // Divide by cnt_frame + 1 so the image runs circularly
     Render(screen, current_x, current_y, currentClip);
 
 //    SDL_RenderPresent(screen);
@@ -65,6 +62,7 @@ void characer::handinput(SDL_Event e){
     // do di theo bang 2D nen current_y -> col
     step_x = 0, step_y = 0;
     if(e.type == SDL_KEYDOWN){
+        cnt_change_maze ++;
         switch (e.key.keysym.sym){
             case SDLK_UP:
                 step_x -= 1;

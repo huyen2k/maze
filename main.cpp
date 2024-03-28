@@ -1,5 +1,6 @@
 #include "common.h"
 #include "characer.h"
+#include "ghost.h"
 
 using namespace std;
 
@@ -14,8 +15,8 @@ int main(int argc, char ** argv)
         }
         bool quit = 0;
         SDL_Event e;
+        change_size(round_in);
 
-        change_size();
         //printf("round in %d\n", round_in);
         characer main_character;
         main_character.init_data();
@@ -26,7 +27,16 @@ int main(int argc, char ** argv)
                 main_character.handinput(e);
             }
 
-            main_character.runAnimation(g_render, e);
+            {
+                SDL_SetRenderDrawColor(g_render, color_road[0], color_road[1], color_road[2], color_road[3] );
+                SDL_RenderClear(g_render);
+                maze(g_render);
+                main_character.runAnimation(g_render, e);
+//                if(cnt_change_maze == 5){
+//                    cnt_change_maze = 0;
+//                    clear_visited(main_character.current_x, main_character.current_y);
+//                }
+            }
 
             SDL_RenderPresent(g_render);
 

@@ -33,6 +33,9 @@ extern int rannum; //seed rand maze
 extern ii endgame; //pos which game win
 extern int round_in; //round you are in
 
+extern int begin_x, begin_y;
+extern int cnt_change_maze;
+
 enum{
     up,
     left,
@@ -54,10 +57,11 @@ extern SDL_Rect running_clip[roundplay][total][cnt_frame];
 extern int game_round;
 
 void quitSDL();
-void change_size();
+void change_size(int round_in);
 bool initdata();
 bool inmaze(int x, int y);
 void fillscreen();
 void maze(SDL_Renderer* screen);
+void clear_visited(int x, int y);
 
 #endif // COMMON_H

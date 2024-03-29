@@ -3,6 +3,7 @@
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_render = nullptr;
 vector<vector<int> > visited;
+vector<vector<int> > has_point;
 vector<vector<SDL_Rect> > wall;
 int cntheight, cntwidth;
 int dir[4] = {0, 1, 2, 3};
@@ -25,6 +26,9 @@ void change_size(int round_in){
     for(int i = 0; i < cntheight; i ++)
         for(int j = 0; j < cntwidth; j ++)
         visited[i][j] = 0;
+
+    has_point.clear();
+    has_point.resize(cntheight, vector<int> (cntwidth, 0));
 
     wall.clear();
     wall.resize(cntheight, vector<SDL_Rect> (cntwidth));
@@ -76,6 +80,17 @@ bool inmaze(int x, int y){
 }
 
 void fillscreen(SDL_Renderer* screen){
+
+    for(int i = 1; i < cntheight - 1; i ++)
+       for(int j = 1; j < cntwidth - 1; j ++){
+            if(!has_point[i][j]){
+                SDL_SetRenderDrawColor( screen, color_point[0], color_point[1], color_point[2], color_point[3]);
+                int xx = wall[i][j].x, yy = wall[i][j].y;
+                SDL_Rect tmp = {xx + wall[i][j].w / 2 - 2, yy + wall[i][j].h / 2 - 2, 4, 4};
+                SDL_RenderFillRect(g_render, &tmp);
+            }
+       }
+
     for(int i = 1; i < cntheight - 1; i ++)
        for(int j = 1; j < cntwidth - 1; j ++){
             if(visited[i][j]) continue;
@@ -84,14 +99,14 @@ void fillscreen(SDL_Renderer* screen){
        }
     for(int i = 0; i < cntheight; i ++){
         visited[i][0] = visited[i][cntwidth - 1] = 0;
-        SDL_SetRenderDrawColor( screen, color_border[0], color_border[1], color_border[2], color_border[3]);
+        SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
         SDL_RenderFillRect(screen, &wall[i][0]);
         SDL_RenderFillRect(screen, &wall[i][cntwidth - 1]);
     }
 
     for(int i = 0; i < cntwidth; i ++){
         visited[0][i] = visited[cntheight - 1][i] = 0;
-        SDL_SetRenderDrawColor( screen, color_border[0], color_border[1], color_border[2], color_border[3]);
+        SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
         SDL_RenderFillRect(screen, &wall[0][i]);
         SDL_RenderFillRect(screen, &wall[cntheight - 1][i]);
     }

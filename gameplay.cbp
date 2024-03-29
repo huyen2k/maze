@@ -36,12 +36,12 @@
 		</Compiler>
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="Dot.cpp" />
+		<Unit filename="Dot.h" />
 		<Unit filename="characer.cpp" />
 		<Unit filename="characer.h" />
 		<Unit filename="common.cpp" />
 		<Unit filename="common.h" />
-		<Unit filename="ghost.cpp" />
-		<Unit filename="ghost.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

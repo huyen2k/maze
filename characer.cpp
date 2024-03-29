@@ -45,6 +45,7 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
 
     SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ]; // Divide by cnt_frame + 1 so the image runs circularly
     Render(screen, current_x, current_y, currentClip);
+    has_point[current_x][current_y] = 1;
 
 //    SDL_RenderPresent(screen);
     //Go to next frame

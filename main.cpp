@@ -18,8 +18,6 @@ int main(int argc, char ** argv)
 
         characer main_character;
         main_character.init_data();
-//        Dot dot;
-//        dot.set_rect();
 
         while(!quit){
             while(SDL_PollEvent(&e) != 0){
@@ -31,7 +29,6 @@ int main(int argc, char ** argv)
                 SDL_SetRenderDrawColor(g_render, color_road[0], color_road[1], color_road[2], color_road[3] );
                 SDL_RenderClear(g_render);
                 maze(g_render);
-//                dot.apply(g_render);
                 main_character.runAnimation(g_render, e);
             }
 

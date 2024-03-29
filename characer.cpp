@@ -6,8 +6,8 @@ SDL_Rect running_clip[roundplay][total][cnt_frame];
 characer::characer(){
     Texture_ = nullptr;
     type = 3;
-    step_x = 0, step_y = 0;
     current_x = 1, current_y = 1;
+    dir = -1;
 }
 
 characer::~characer(){
@@ -61,30 +61,44 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
 void characer::handinput(SDL_Event e){
     // do di theo bang 2D nen current_x -> row
     // do di theo bang 2D nen current_y -> col
-    step_x = 0, step_y = 0;
+    int ktype = -1;
     if(e.type == SDL_KEYDOWN){
         switch (e.key.keysym.sym){
             case SDLK_UP:
-                step_x -= 1;
+                ktype = 0;
                 type = 0;
                 break;
             case SDLK_DOWN:
-                step_x += 1;
                 type = 2;
+                ktype = 2;
                 break;
             case SDLK_RIGHT:
-                step_y += 1;
                 type = 3;
+                ktype = 3;
                 break;
             case SDLK_LEFT:
-                step_y -= 1;
                 type = 1;
+                ktype = 1;
                 break;
         }
     }
-    current_x += step_x;
-    current_y += step_y;
+
+    handrun(ktype);
+}
+
+void characer::handrun(int type){
+    if(type == -1) return;
+//    static int cnt = 0;
+
+//    if(cnt / 4 >= 4) {
+//        cnt = 0;
+//        return;
+//    }
+//    ++cnt;
+
+    current_x += step_x[type];
+    current_y += step_y[type];
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
-       current_y == 0 || current_y == cntwidth - 1) current_x -= step_x, current_y -= step_y;
+       current_y == 0 || current_y == cntwidth - 1) current_x -= step_x[type], current_y -= step_y[type];
 }
 

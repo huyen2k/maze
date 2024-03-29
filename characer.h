@@ -11,6 +11,9 @@ const string frame_img[roundplay][total] = {{"img/36px/up.png", "img/36px/left.p
                             {"img/26px/up.png", "img/26px/left.png", "img/26px/down.png", "img/26px/right.png"},
                             {"img/16px/up.png", "img/16px/left.png", "img/16px/down.png", "img/16px/right.png"} };
 
+const int step_x[] = {-1, 0, 1, 0};
+const int step_y[] = {0, -1, 0, 1};
+
 class characer
 {
     public:
@@ -40,13 +43,15 @@ class characer
 
         void handinput(SDL_Event e);
 
+        void handrun(int type);
+
         bool check_win(){
             return (current_x == endgame.first && current_y == endgame.second);
         };
 
         int type;
-        int step_x, step_y;
         int current_x, current_y;
+        int dir;
 
     private:
         SDL_Texture* Texture_;

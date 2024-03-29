@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1711643826 source:f:\game sdl\maze\main.cpp
+1711687382 source:f:\game sdl\maze\main.cpp
 	"common.h"
 	"characer.h"
 	"ghost.h"
@@ -11,10 +11,10 @@
 	<SDL_ttf.h>
 	<bits/stdc++.h>
 
-1711644044 source:f:\game sdl\maze\common.cpp
+1711687425 source:f:\game sdl\maze\common.cpp
 	"common.h"
 
-1711643565 source:f:\game sdl\maze\characer.cpp
+1711687393 source:f:\game sdl\maze\characer.cpp
 	"characer.h"
 	"common.h"
 

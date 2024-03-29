@@ -37,7 +37,6 @@ void change_size(int round_in){
             wall[i][j].h = rect_height[round_in];
             wall[i][j].w = rect_width[round_in];
             xx += rect_width[round_in];
-            //std::cout << i << " " << j << " " << wall[i][j].x << " " << wall[i][j].y << '\n';
         }
         yy += rect_height[round_in];
     }
@@ -117,7 +116,6 @@ void clear_visited(int x, int y){
             wall[i][j].h = rect_height[round_in];
             wall[i][j].w = rect_width[round_in];
             xx += rect_width[round_in];
-            //std::cout << i << " " << j << " " << wall[i][j].x << " " << wall[i][j].y << '\n';
         }
         yy += rect_height[round_in];
     }
@@ -128,7 +126,7 @@ void maze(SDL_Renderer* screen){
     endgame = {0, 0};
     vector<ii> st;
 
-    st.push_back({begin_x, begin_y});
+    st.push_back({1, 1});
     srand(rannum);
     int cnt = rand()% 100;
 

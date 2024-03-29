@@ -62,7 +62,6 @@ void characer::handinput(SDL_Event e){
     // do di theo bang 2D nen current_y -> col
     step_x = 0, step_y = 0;
     if(e.type == SDL_KEYDOWN){
-        cnt_change_maze ++;
         switch (e.key.keysym.sym){
             case SDLK_UP:
                 step_x -= 1;

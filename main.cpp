@@ -17,7 +17,6 @@ int main(int argc, char ** argv)
         SDL_Event e;
         change_size(round_in);
 
-        //printf("round in %d\n", round_in);
         characer main_character;
         main_character.init_data();
 
@@ -32,10 +31,6 @@ int main(int argc, char ** argv)
                 SDL_RenderClear(g_render);
                 maze(g_render);
                 main_character.runAnimation(g_render, e);
-//                if(cnt_change_maze == 5){
-//                    cnt_change_maze = 0;
-//                    clear_visited(main_character.current_x, main_character.current_y);
-//                }
             }
 
             SDL_RenderPresent(g_render);

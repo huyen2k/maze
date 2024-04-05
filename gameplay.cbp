@@ -36,8 +36,8 @@
 		</Compiler>
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
-		<Unit filename="Dot.cpp" />
-		<Unit filename="Dot.h" />
+		<Unit filename="Text.cpp" />
+		<Unit filename="Text.h" />
 		<Unit filename="characer.cpp" />
 		<Unit filename="characer.h" />
 		<Unit filename="common.cpp" />

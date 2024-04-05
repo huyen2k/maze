@@ -2,9 +2,12 @@
 
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_render = nullptr;
+TTF_Font* g_font = nullptr;
+
 vector<vector<int> > visited;
 vector<vector<int> > has_point;
 vector<vector<SDL_Rect> > wall;
+
 int cntheight, cntwidth;
 int dir[4] = {0, 1, 2, 3};
 int rannum;
@@ -12,6 +15,7 @@ ii endgame;
 int round_in = 0;
 int begin_x, begin_y;
 int cnt_change_maze;
+bool game_start = 0;
 
 // x -> row
 // y -> cols
@@ -49,9 +53,15 @@ void change_size(int round_in){
 void quitSDL(){
     SDL_DestroyRenderer(g_render);
     SDL_DestroyWindow(g_window);
-    SDL_Quit();
+    TTF_CloseFont(g_font);
+
     g_render = nullptr;
     g_window = nullptr;
+    g_font = nullptr;
+
+    SDL_Quit();
+    IMG_Quit();
+    TTF_Quit();
 }
 
 bool initdata(){
@@ -67,9 +77,27 @@ bool initdata(){
         g_window = SDL_CreateWindow("newhello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if(g_window != nullptr){
             g_render = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-            SDL_SetRenderDrawColor(g_render, 0xFF, 0xFF, 0xFF, 0xFF);
+            if(g_render != nullptr){
+                SDL_SetRenderDrawColor(g_render, 0, 0, 0, 0);
+                //Initialize PNG loading
+                int imgFlags = IMG_INIT_PNG;
+                if( !( IMG_Init( imgFlags ) & imgFlags ) )
+                {
+                    printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                    success = false;
+                }
+
+                 //Initialize SDL_ttf
+                if( TTF_Init() == -1 )
+                {
+                    printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+                    success = false;
+                }
+                g_font = TTF_OpenFont( "img/VNI-HelveB.ttf", size_text[round_in]);
+            }
         }
     }
+
     return success;
 }
 

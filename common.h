@@ -11,7 +11,7 @@ using ii = pair<int, int>;
 
 extern SDL_Window* g_window;
 extern SDL_Renderer* g_render;
-extern SDL_Renderer* background;
+extern TTF_Font* g_font;
 
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;
@@ -19,11 +19,13 @@ const int SCREEN_HEIGHT = 760;
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
+const int size_text[roundplay] = {36, 24, 12};
 
 const int color_wall[4] = {83, 103, 201, 1};
 const int color_road[4] = {5, 5, 5, 1};
-const int color_des[4] = {242, 2, 49, 1};
+const int color_des[4] = {242, 2, 49, 1}; // mau cua dich den
 const int color_point[4] = {220, 215, 171, 1};
+const int color_text[4] = {0, 0, 0, 0};
 
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;
@@ -32,6 +34,7 @@ const int COLOR_KEY_B = 255;
 extern int rannum; //seed rand maze
 extern ii endgame; //pos which game win
 extern int round_in; //round you are in
+extern bool game_start; //true when you enter play game
 
 extern int begin_x, begin_y;
 extern int cnt_change_maze;

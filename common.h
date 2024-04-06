@@ -19,6 +19,7 @@ const int SCREEN_HEIGHT = 760;
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
+const int num_food[roundplay] = {6, 15, 20};
 const int size_text[roundplay] = {36, 24, 12};
 
 const int color_wall[4] = {83, 103, 201, 1};
@@ -51,9 +52,11 @@ extern int dir[4];
 extern int cntheight;
 extern int cntwidth;
 
-extern vector<vector<int> > visited;
-extern vector<vector<int> > has_point;
+extern vector<vector<bool> > visited;
+extern vector<vector<bool> > has_point;
+extern vector<vector<pair<bool, int> > > has_food;
 extern vector<vector<SDL_Rect> > wall;
+extern vector<ii> list_road;
 
 const int cnt_frame = 3;
 

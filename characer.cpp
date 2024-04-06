@@ -88,17 +88,18 @@ void characer::handinput(SDL_Event e){
 
 void characer::handrun(int type){
     if(type == -1) return;
-//    static int cnt = 0;
-
-//    if(cnt / 4 >= 4) {
-//        cnt = 0;
-//        return;
-//    }
-//    ++cnt;
 
     current_x += step_x[type];
     current_y += step_y[type];
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
        current_y == 0 || current_y == cntwidth - 1) current_x -= step_x[type], current_y -= step_y[type];
+
+    if(has_food[current_x][current_y].first){
+        srand(time(0));
+        int k = rand() % int(list_road.size() - 1);
+        current_x = list_road[k].first;
+        current_y = list_road[k].second;
+        has_food[current_x][current_y].first = 0;
+    }
 }
 

@@ -1,11 +1,13 @@
 #include "common.h"
+#include "Fruit.h"
 
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_render = nullptr;
 TTF_Font* g_font = nullptr;
 
-vector<vector<int> > visited;
-vector<vector<int> > has_point;
+vector<vector<bool> > visited;
+vector<vector<bool> > has_point;
+vector<vector<pair<bool, int> > > has_food;
 vector<vector<SDL_Rect> > wall;
 
 int cntheight, cntwidth;
@@ -16,23 +18,34 @@ int round_in = 0;
 int begin_x, begin_y;
 int cnt_change_maze;
 bool game_start = 0;
+bool game_has_food = 0;
 
 // x -> row
 // y -> cols
 
+vector<int> list_choose_food;
+vector<ii> list_road;
+
 void change_size(int round_in){
+    srand(time(0));
+    rannum = rand() % 30;
     begin_x = begin_y = 1;
+    game_has_food = 0;
     cntheight = SCREEN_HEIGHT / rect_height[round_in];
     cntwidth = SCREEN_WIDTH / rect_width[round_in];
 
     visited.clear();
-    visited.resize(cntheight, vector<int> (cntwidth));
+    visited.resize(cntheight, vector<bool> (cntwidth));
     for(int i = 0; i < cntheight; i ++)
         for(int j = 0; j < cntwidth; j ++)
         visited[i][j] = 0;
 
+    list_road.clear();
     has_point.clear();
-    has_point.resize(cntheight, vector<int> (cntwidth, 0));
+    has_point.resize(cntheight, vector<bool> (cntwidth, 0));
+
+    has_food.clear();
+    has_food.resize(cntheight, vector<pair<bool, int>> (cntwidth, pair<bool,int>(0, -1)));
 
     wall.clear();
     wall.resize(cntheight, vector<SDL_Rect> (cntwidth));
@@ -48,6 +61,17 @@ void change_size(int round_in){
         }
         yy += rect_height[round_in];
     }
+
+    pre_image();
+    mt19937 rng;
+    rng.seed(time(0));
+    int cnt = 0;
+    for(int i = 0; i < num_food[round_in]; i ++){
+        rng.seed(cnt ++);
+        int k = rng() % int(list_food.size() - 1);
+        list_choose_food.push_back(k);
+    }
+
 }
 
 void quitSDL(){
@@ -107,11 +131,14 @@ bool inmaze(int x, int y){
     return 1;
 }
 
+// has_point = 0 ? true : false
+// has_food = -1 ? false : true
+
 void fillscreen(SDL_Renderer* screen){
 
     for(int i = 1; i < cntheight - 1; i ++)
        for(int j = 1; j < cntwidth - 1; j ++){
-            if(!has_point[i][j]){
+            if(!has_point[i][j] && !has_food[i][j].first){
                 SDL_SetRenderDrawColor( screen, color_point[0], color_point[1], color_point[2], color_point[3]);
                 int xx = wall[i][j].x, yy = wall[i][j].y;
                 SDL_Rect tmp = {xx + wall[i][j].w / 2 - 2, yy + wall[i][j].h / 2 - 2, 4, 4};
@@ -121,7 +148,9 @@ void fillscreen(SDL_Renderer* screen){
 
     for(int i = 1; i < cntheight - 1; i ++)
        for(int j = 1; j < cntwidth - 1; j ++){
-            if(visited[i][j]) continue;
+            if(visited[i][j]){
+                continue;
+            }
             SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
             SDL_RenderFillRect(g_render, &wall[i][j]);
        }
@@ -138,12 +167,13 @@ void fillscreen(SDL_Renderer* screen){
         SDL_RenderFillRect(screen, &wall[0][i]);
         SDL_RenderFillRect(screen, &wall[cntheight - 1][i]);
     }
+
 }
 
 void clear_visited(int x, int y){
     begin_x = x, begin_y = y;
     visited.clear();
-    visited.resize(cntheight, vector<int> (cntwidth));
+    visited.resize(cntheight, vector<bool> (cntwidth));
     for(int i = 0; i < cntheight; i ++)
         for(int j = 0; j < cntwidth; j ++)
         visited[i][j] = 0;
@@ -230,5 +260,35 @@ void maze(SDL_Renderer* screen){
         endgame = {tmp[k].first, tmp[k].second};
     }
 
+    for(int i = 1; i < cntheight - 1; i ++)
+       for(int j = 1; j < cntwidth - 1; j ++)
+            if(visited[i][j]){
+                list_road.push_back({i, j});
+            }
+
+    mt19937 rng;
+    if(!game_has_food){
+        game_has_food = 1;
+        rng.seed(rannum);
+        int n = list_road.size() - 1;
+        for(int i = 0; i < num_food[round_in]; i ++){
+            int j = rng() % n;
+            int x = list_road[j].first;
+            int y = list_road[j].second;
+            has_food[x][y].first = 1;
+        }
+    }
+
+    Fruit food;
+    rng.seed(rannum);
+    int cnt_food = 0;
+    for(int i = 1; i < cntheight - 1; i ++)
+        for(int j = 1; j < cntwidth - 1; j ++)
+        if(has_food[i][j].first){
+            if(has_food[i][j].second == -1) has_food[i][j].second = list_choose_food[cnt_food ++];
+            //cout << has_food[i][j] << '\n';
+            food.render_img(screen, i, j, &list_food[has_food[i][j].second]);
+        }
 }
+
 

@@ -19,7 +19,7 @@ const int SCREEN_HEIGHT = 760;
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
-const int num_food[roundplay] = {6, 15, 20};
+const int num_food[roundplay] = {6, 15, 21};
 const int size_text[roundplay] = {36, 24, 12};
 
 const int color_wall[4] = {83, 103, 201, 1};
@@ -60,14 +60,13 @@ extern vector<ii> list_road;
 
 const int cnt_frame = 3;
 
-extern SDL_Rect running_clip[roundplay][total][cnt_frame];
 extern int game_round;
 
 void quitSDL();
 void change_size(int round_in);
 bool initdata();
 bool inmaze(int x, int y);
-void fillscreen();
+void fillscreen(SDL_Renderer* screen);
 void maze(SDL_Renderer* screen);
 void clear_visited(int x, int y);
 

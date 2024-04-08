@@ -39,7 +39,7 @@ bool Fruit::LoadImage(std::string path, SDL_Renderer* screen){
 
 void Fruit::render_img(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
     if(!LoadImage(src_img, screen)){
-        printf("Have error with image %s\n", SDL_GetError());
+        printf("Have error with image in fruit %s\n", SDL_GetError());
     }
     SDL_Rect renderQuad = wall[x][y];
 

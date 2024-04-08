@@ -1,7 +1,7 @@
 #include "characer.h"
 #include "common.h"
 
-SDL_Rect running_clip[roundplay][total][cnt_frame];
+SDL_Rect running_clip[total][cnt_frame];
 
 characer::characer(){
     Texture_ = nullptr;
@@ -29,7 +29,7 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
 }
 
 void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
-    if(!LoadImage(frame_img[round_in][type], screen)){
+    if(!LoadImage(frame_img[type], screen)){
         printf("Have error with image %s\n", SDL_GetError());
     }
     SDL_Rect renderQuad = wall[x][y];
@@ -43,7 +43,7 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
 
-    SDL_Rect* currentClip = &running_clip[round_in][type][ frame / 4 ]; // Divide by cnt_frame + 1 so the image runs circularly
+    SDL_Rect* currentClip = &running_clip[type][ frame / 4 ]; // Divide by cnt_frame + 1 so the image runs circularly
     Render(screen, current_x, current_y, currentClip);
     has_point[current_x][current_y] = 1;
 
@@ -94,12 +94,5 @@ void characer::handrun(int type){
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
        current_y == 0 || current_y == cntwidth - 1) current_x -= step_x[type], current_y -= step_y[type];
 
-    if(has_food[current_x][current_y].first){
-        srand(time(0));
-        int k = rand() % int(list_road.size() - 1);
-        current_x = list_road[k].first;
-        current_y = list_road[k].second;
-        has_food[current_x][current_y].first = 0;
-    }
 }
 

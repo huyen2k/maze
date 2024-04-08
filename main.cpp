@@ -55,6 +55,7 @@ int main(int argc, char ** argv)
 
             characer main_character;
             main_character.init_data();
+            maze(g_render);
 
             while(!quit){
                 while(SDL_PollEvent(&e) != 0){
@@ -65,13 +66,14 @@ int main(int argc, char ** argv)
                 {
                     SDL_SetRenderDrawColor(g_render, color_road[0], color_road[1], color_road[2], color_road[3] );
                     SDL_RenderClear(g_render);
-                    maze(g_render);
+                    fillscreen(g_render);
                     main_character.runAnimation(g_render, e);
                 }
 
                 SDL_RenderPresent(g_render);
 
                 if(main_character.check_win()) quit = 1;
+                main_character.check_food();
             }
             SDL_RenderClear(g_render);
             round_in ++;

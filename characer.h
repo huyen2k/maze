@@ -7,12 +7,11 @@
 #define frame_down36 "img/36px/down.png"
 #define frame_right36 "img/36px/right.png"
 
-const string frame_img[roundplay][total] = {{"img/36px/up.png", "img/36px/left.png", "img/36px/down.png", "img/36px/right.png"},
-                            {"img/26px/up.png", "img/26px/left.png", "img/26px/down.png", "img/26px/right.png"},
-                            {"img/16px/up.png", "img/16px/left.png", "img/16px/down.png", "img/16px/right.png"} };
+const string frame_img[total] = {"img/16px/up.png", "img/16px/left.png", "img/16px/down.png", "img/16px/right.png"};
 
 const int step_x[] = {-1, 0, 1, 0};
 const int step_y[] = {0, -1, 0, 1};
+extern SDL_Rect running_clip[total][cnt_frame];
 
 class characer
 {
@@ -24,11 +23,11 @@ class characer
             for(int type = 0; type < total; type ++){
                 int cnt = 0;
                 for(int i = 0; i < cnt_frame; i ++){
-                    running_clip[round_in][type][i].x = cnt;
-                    running_clip[round_in][type][i].y = 0;
-                    running_clip[round_in][type][i].w = rect_width[round_in];
-                    running_clip[round_in][type][i].h = rect_height[round_in];
-                    cnt += rect_width[round_in];
+                    running_clip[type][i].x = cnt;
+                    running_clip[type][i].y = 0;
+                    running_clip[type][i].w = 16;
+                    running_clip[type][i].h = 16;
+                    cnt += 16;
                 }
             }
         }
@@ -48,6 +47,17 @@ class characer
         bool check_win(){
             return (current_x == endgame.first && current_y == endgame.second);
         };
+
+        void check_food(){
+            if(has_food[current_x][current_y].first){
+                srand(time(0));
+                int k = rand() % int(list_road.size() - 1);
+                has_food[current_x][current_y].first = 0;
+                has_food[current_x][current_y].second = -1;
+                current_x = list_road[k].first;
+                current_y = list_road[k].second;
+            }
+        }
 
         int type;
         int current_x, current_y;

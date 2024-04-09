@@ -40,22 +40,13 @@ bool Text::loadFromRenderedText(SDL_Renderer* screen){
     return Tex != NULL;
 }
 
-void Text::render( SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
+void Text::render(SDL_Renderer* screen, SDL_Rect* src, SDL_Rect* dst){
     if(!loadFromRenderedText(screen)){
         printf("Error %s\n", TTF_GetError());
     };
 
-    SDL_Rect renderQuad = { x, y, T_width, T_height };
-
-    //Set clip rendering dimensions
-    if( clip != NULL )
-    {
-        renderQuad.w = clip->w;
-        renderQuad.h = clip->h;
-    }
-
     //Render to screen
-    SDL_RenderCopy( screen, Tex, clip, &renderQuad );
+    SDL_RenderCopy( screen, Tex, src, dst);
 }
 
 bool update_start(SDL_Renderer* screen){
@@ -73,23 +64,60 @@ bool update_start(SDL_Renderer* screen){
                 return 0;
             }
             start_button.hand_input(&e);
+            if(start_button.check_enter) game_start = 1;
         }
         ifstream file("tutorial.txt");
         string s;
 //        SDL_SetRenderDrawColor( screen, 0, 0, 255, 0);
 //        SDL_RenderClear( screen );
         int beg = 0;
-        for(int i = 0; i < 2; i ++){
+        for(int i = 0; i < 3; i ++){
             getline(file, s);
             Text tutorial(s, color_tutorial, 30);
-            tutorial.render(screen, 0, beg);
-            beg += tutorial.getHeight();
+            SDL_Rect dst = {0, beg, SCREEN_WIDTH, tutorial.getHeight()};
+            tutorial.render(screen, NULL, &dst);
+            beg += tutorial.getHeight() * 2;
 
         }
-        start_text.render(screen, BUTTON_X, BUTTON_Y);
+        start_text.render(screen, NULL, start_button.get_Rect());
 
         SDL_RenderPresent(g_render);
         if(game_start) return 1;
+    }
+    return 1;
+}
+
+bool update_playagain(SDL_Renderer* screen){
+    int color_tutorial[4] = {0, 246, 255, 1};
+    int color_end[4] = {255, 0, 0, 1};
+
+    Button playagain_button(260, 530, BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button quit_button(BUTTON_X, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+    Text playagain_text("PLAY AGAIN?", color_end, 46);
+    Text quit_text("QUIT?", color_end, 46);
+
+    SDL_Event e;
+    int quit = 0;
+    while(!quit){
+        while(SDL_PollEvent(&e) != 0){
+            if(e.type == SDL_QUIT){
+                return 0;
+            }
+            playagain_button.hand_input(&e);
+            if(playagain_button.check_enter) return 1;
+            quit_button.hand_input(&e);
+            if(quit_button.check_enter) return 0;
+        }
+//        SDL_SetRenderDrawColor( screen, 0, 0, 255, 0);
+//        SDL_RenderClear( screen );
+        Text tutorial("Do you want to play more?", color_tutorial, 30);
+        SDL_Rect dst = {390, 390, tutorial.getWidth(), tutorial.getHeight()};
+        tutorial.render(screen, NULL, &dst);
+
+        playagain_text.render(screen, NULL, playagain_button.get_Rect());
+        quit_text.render(screen, NULL, playagain_button.get_Rect());
+
+        SDL_RenderPresent(g_render);
     }
     return 1;
 }

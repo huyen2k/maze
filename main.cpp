@@ -14,7 +14,7 @@ int main(int argc, char ** argv)
             cout << "ERROR\n";
             return 0;
         }
-
+        game_start = 0;
         if(!update_start(g_render)) break;
 
         if(!game_start) continue;
@@ -29,9 +29,9 @@ int main(int argc, char ** argv)
             characer main_character;
             main_character.init_data();
             maze(g_render);
-            int color[] = {0, 0, 0, 1};
+//            int color[] = {0, 0, 0, 1};
 
-            Text scr("SCORE: ", color, rect_height[round_in]);
+//            Text scr("SCORE: ", color, rect_height[round_in]);
 
             while(!quit){
                 while(SDL_PollEvent(&e) != 0){
@@ -44,7 +44,7 @@ int main(int argc, char ** argv)
                     SDL_RenderClear(g_render);
                     fillscreen(g_render);
                     main_character.runAnimation(g_render, e);
-                    scr.render(g_render, 0, 0, &wall[0][0]);
+//                    scr.render(g_render, 0, 0);
                 }
 
                 SDL_RenderPresent(g_render);
@@ -57,6 +57,9 @@ int main(int argc, char ** argv)
             if(round_in == 3) round = 1;
             //cout << round_in << '\n';
         }
+
+        if(!update_playagain(g_render))break;
+
         quitSDL();
     }
     return 0;

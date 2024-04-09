@@ -17,7 +17,7 @@ ii endgame;
 int round_in = 0;
 int begin_x, begin_y;
 int cnt_change_maze;
-bool game_start = 0;
+bool game_start;
 bool game_has_food = 0;
 int score;
 

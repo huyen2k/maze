@@ -1,14 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include "common.h"
-
-const int BUTTON_WIDTH = SCREEN_WIDTH / 6;
-const int BUTTON_HEIGHT = SCREEN_HEIGHT / 6;
-const int BUTTON_X = 450;
-const int BUTTON_Y = 450;
-
-const int color_button_up[] = {255, 255, 255, 255};
-const int color_button_down[] = {0, 0, 0, 1};
+#include "Text.h"
 
 class Button
 {
@@ -19,6 +12,7 @@ class Button
             Rect.y = y;
             Rect.w = width;
             Rect.h = height;
+            check_enter = 0;
         };
         //deallocated memory
         ~Button();
@@ -36,6 +30,10 @@ class Button
             for(int i = 0; i < 4; i ++)
                 color_button[i] = color[i];
         };
+
+        SDL_Rect *get_Rect(){return &Rect;};
+
+        bool check_enter;
 
     private:
         SDL_Rect Rect;

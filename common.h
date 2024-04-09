@@ -15,6 +15,10 @@ extern TTF_Font* g_font;
 
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;
+const int BUTTON_WIDTH = SCREEN_WIDTH / 6;
+const int BUTTON_HEIGHT = SCREEN_HEIGHT / 6;
+const int BUTTON_X = 450;
+const int BUTTON_Y = 450;
 
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
@@ -27,6 +31,8 @@ const int color_road[4] = {5, 5, 5, 1};
 const int color_des[4] = {242, 2, 49, 1}; // mau cua dich den
 const int color_point[4] = {220, 215, 171, 1};
 const int color_text[4] = {0, 0, 0, 0};
+const int color_button_up[] = {255, 255, 255, 255};
+const int color_button_down[] = {0, 0, 0, 1};
 
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;

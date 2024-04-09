@@ -19,7 +19,7 @@ class Text{
 
         //bool loadmedia();
 
-        void render( SDL_Renderer* screen, int x, int y, SDL_Rect* clip = NULL);
+        void render(SDL_Renderer* screen, SDL_Rect* src = NULL, SDL_Rect* dst = NULL);
 
     private:
         std::string textureText;
@@ -31,5 +31,6 @@ class Text{
 };
 
 bool update_start(SDL_Renderer* screen);
+bool update_playagain(SDL_Renderer* screen);
 
 #endif // TEXT_H

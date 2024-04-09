@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1712688703 source:f:\game sdl\maze\main.cpp
+1712692488 source:f:\game sdl\maze\main.cpp
 	"common.h"
 	"characer.h"
 	"Text.h"
 	"Button.h"
 
-1712664779 f:\game sdl\maze\common.h
+1712692278 f:\game sdl\maze\common.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 	<bits/stdc++.h>
 
-1712664922 source:f:\game sdl\maze\common.cpp
+1712689717 source:f:\game sdl\maze\common.cpp
 	"common.h"
 	"Fruit.h"
 
@@ -23,11 +23,12 @@
 1712596530 f:\game sdl\maze\characer.h
 	"common.h"
 
-1712663711 source:f:\game sdl\maze\button.cpp
+1712691377 source:f:\game sdl\maze\button.cpp
 	"Button.h"
 
-1712331809 f:\game sdl\maze\button.h
+1712692281 f:\game sdl\maze\button.h
 	"common.h"
+	"Text.h"
 
 1711634107 source:f:\game sdl\maze\ghost.cpp
 	"ghost.h"
@@ -43,12 +44,12 @@
 1711695716 f:\game sdl\maze\dot.h
 	"common.h"
 
-1712688674 source:f:\game sdl\maze\text.cpp
+1712694515 source:f:\game sdl\maze\text.cpp
 	"Text.h"
 	"common.h"
 	"Button.h"
 
-1712688212 f:\game sdl\maze\text.h
+1712695040 f:\game sdl\maze\text.h
 	"common.h"
 
 1712598864 source:f:\game sdl\maze\fruit.cpp

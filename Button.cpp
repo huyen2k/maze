@@ -18,7 +18,7 @@ void Button::hand_input(SDL_Event *e){
         if(inside){
             for(int i = 0; i < 4; i ++)
                 color_button[i] = color_button_down[i];
-            if(e->type == SDL_MOUSEBUTTONDOWN) game_start = 1;
+            if(e->type == SDL_MOUSEBUTTONDOWN) check_enter = 1;
         }
         else {
             for(int i = 0; i < 4; i ++)

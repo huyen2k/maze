@@ -19,6 +19,7 @@ int begin_x, begin_y;
 int cnt_change_maze;
 bool game_start = 0;
 bool game_has_food = 0;
+int score;
 
 // x -> row
 // y -> cols
@@ -33,6 +34,7 @@ void change_size(int round_in){
     game_has_food = 0;
     cntheight = SCREEN_HEIGHT / rect_height[round_in];
     cntwidth = SCREEN_WIDTH / rect_width[round_in];
+    score = 0;
 
     visited.clear();
     visited.resize(cntheight, vector<bool> (cntwidth));
@@ -157,10 +159,11 @@ void fillscreen(SDL_Renderer* screen){
             }
        }
 
-    Fruit food;
+
     for(int i = 1; i < cntheight - 1; i ++)
         for(int j = 1; j < cntwidth - 1; j ++)
         if(has_food[i][j].first){
+            Fruit food;
             food.render_img(screen, i, j, &list_food[has_food[i][j].second]);
         }
 

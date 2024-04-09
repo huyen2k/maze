@@ -15,11 +15,11 @@ class Text{
         int getWidth(){return T_width;};
         int getHeight(){return T_height;};
 
-        bool loadFromRenderedText();
+        bool loadFromRenderedText(SDL_Renderer* screen);
 
         //bool loadmedia();
 
-        void render( int x, int y, SDL_Rect* clip = NULL);
+        void render( SDL_Renderer* screen, int x, int y, SDL_Rect* clip = NULL);
 
     private:
         std::string textureText;
@@ -29,5 +29,7 @@ class Text{
         int T_height;
         int sz;
 };
+
+bool update_start(SDL_Renderer* screen);
 
 #endif // TEXT_H

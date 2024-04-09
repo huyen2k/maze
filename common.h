@@ -36,6 +36,7 @@ extern int rannum; //seed rand maze
 extern ii endgame; //pos which game win
 extern int round_in; //round you are in
 extern bool game_start; //true when you enter play game
+extern int score;
 
 extern int begin_x, begin_y;
 extern int cnt_change_maze;

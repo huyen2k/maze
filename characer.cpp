@@ -84,6 +84,9 @@ void characer::handinput(SDL_Event e){
     }
 
     handrun(ktype);
+    if(has_food[current_x][current_y].first) score += 5;
+    if(has_point[current_x][current_y]) score += 1;
+
 }
 
 void characer::handrun(int type){

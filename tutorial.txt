@@ -1,2 +1,4 @@
-You need to go to the red destination to exit the maze
-Be careful with strawberries (you might fly to another place :D ahihi)
+Use arrow keys to move and escape the maze
+Be careful with food (you can fly to another place :D ahihi)
+
+

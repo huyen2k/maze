@@ -31,3 +31,4 @@ void Button::render(SDL_Renderer *screen){
     SDL_SetRenderDrawColor( screen, color_button[0], color_button[1], color_button[2], color_button[3]);
     SDL_RenderFillRect(screen, &Rect);
 }
+

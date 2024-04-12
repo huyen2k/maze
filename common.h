@@ -23,7 +23,7 @@ const int BUTTON_Y = 450;
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
-const int num_food[roundplay] = {6, 15, 21};
+const int num_food[roundplay] = {20, 15, 21};
 const int size_text[roundplay] = {36, 24, 12};
 
 const int color_wall[4] = {83, 103, 201, 1};

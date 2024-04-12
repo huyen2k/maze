@@ -2,6 +2,7 @@
 #include "characer.h"
 #include "Text.h"
 #include "Button.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -52,13 +53,13 @@ int main(int argc, char ** argv)
                 if(main_character.check_win()) quit = 1;
                 main_character.check_food();
             }
-            SDL_RenderClear(g_render);
             round_in ++;
             if(round_in == 3) round = 1;
             //cout << round_in << '\n';
         }
 
-        if(!update_playagain(g_render))break;
+//        if(out) break;
+        if(!update_gameover(g_render))break;
 
         quitSDL();
     }

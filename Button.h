@@ -8,10 +8,7 @@ class Button
     public:
         //init value
         Button(int x, int y, int width, int height){
-            Rect.x = x;
-            Rect.y = y;
-            Rect.w = width;
-            Rect.h = height;
+            Rect = {x, y, width, height};
             check_enter = 0;
         };
         //deallocated memory

@@ -269,7 +269,7 @@ void maze(SDL_Renderer* screen){
     if(list_road.size() == 0){
         for(int i = 1; i < cntheight - 1; i ++)
            for(int j = 1; j < cntwidth - 1; j ++)
-                if(visited[i][j] && ii(i, j) != endgame){
+                if(visited[i][j] && ii(i, j) != endgame && ii(i, j) != ii(1, 1)){
                     list_road.push_back({i, j});
                 }
     }

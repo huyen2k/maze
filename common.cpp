@@ -34,7 +34,6 @@ void change_size(int round_in){
     game_has_food = 0;
     cntheight = SCREEN_HEIGHT / rect_height[round_in];
     cntwidth = SCREEN_WIDTH / rect_width[round_in];
-    score = 0;
 
     visited.clear();
     visited.resize(cntheight, vector<bool> (cntwidth));
@@ -134,12 +133,12 @@ bool inmaze(int x, int y){
 }
 
 // has_point = 0 ? true : false
-// has_food = -1 ? false : true
+// has_food = 0 ? false : true
 
 void fillscreen(SDL_Renderer* screen){
 
-    for(int i = 1; i < cntheight - 1; i ++)
-       for(int j = 1; j < cntwidth - 1; j ++){
+    for(int i = 0; i < cntheight; i ++)
+       for(int j = 0; j < cntwidth; j ++){
             if(visited[i][j]){
                 SDL_SetRenderDrawColor( screen, color_road[0], color_road[1], color_road[2], color_road[3]);
                 SDL_RenderFillRect(screen, &wall[i][j]);
@@ -166,20 +165,6 @@ void fillscreen(SDL_Renderer* screen){
             Fruit food;
             food.render_img(screen, i, j, &list_food[has_food[i][j].second]);
         }
-
-    for(int i = 0; i < cntheight; i ++){
-        visited[i][0] = visited[i][cntwidth - 1] = 0;
-        SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
-        SDL_RenderFillRect(screen, &wall[i][0]);
-        SDL_RenderFillRect(screen, &wall[i][cntwidth - 1]);
-    }
-
-    for(int i = 0; i < cntwidth; i ++){
-        visited[0][i] = visited[cntheight - 1][i] = 0;
-        SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
-        SDL_RenderFillRect(screen, &wall[0][i]);
-        SDL_RenderFillRect(screen, &wall[cntheight - 1][i]);
-    }
 
     SDL_SetRenderDrawColor(screen, color_des[0], color_des[1], color_des[2], color_des[3]);
     SDL_RenderFillRect(screen, &wall[endgame.first][endgame.second]);

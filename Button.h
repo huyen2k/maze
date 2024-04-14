@@ -1,7 +1,6 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include "common.h"
-#include "Text.h"
 
 class Button
 {

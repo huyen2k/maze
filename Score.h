@@ -1,7 +1,7 @@
 #ifndef SCORE_H
 #define SCORE_H
 #include "common.h"
-
+#define src_score "img/number/score.png"
 
 class Score
 {
@@ -13,7 +13,7 @@ class Score
 
         void render(SDL_Renderer* screen, int x, int y);
 
-        void render_number(SDL_Renderer* screen, int x, int y);
+        void render_number(SDL_Renderer* screen, int x, int y, int score);
 
     private:
         SDL_Texture* Tex;

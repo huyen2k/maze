@@ -47,7 +47,6 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     Render(screen, current_x, current_y, currentClip);
     has_point[current_x][current_y] = 1;
 
-//    SDL_RenderPresent(screen);
     //Go to next frame
     ++frame;
 
@@ -84,8 +83,9 @@ void characer::handinput(SDL_Event e){
     }
 
     handrun(ktype);
+
     if(has_food[current_x][current_y].first) score += 5;
-    if(has_point[current_x][current_y]) score += 1;
+    if(!has_point[current_x][current_y]) score += 1;
 
 }
 

@@ -7,7 +7,7 @@
 #define frame_down36 "img/36px/down.png"
 #define frame_right36 "img/36px/right.png"
 
-const string frame_img[total] = {"img/16px/up.png", "img/16px/left.png", "img/16px/down.png", "img/16px/right.png"};
+const std::string frame_img[total] = {"img/16px/up.png", "img/16px/left.png", "img/16px/down.png", "img/16px/right.png"};
 
 const int step_x[] = {-1, 0, 1, 0};
 const int step_y[] = {0, -1, 0, 1};

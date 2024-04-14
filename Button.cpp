@@ -1,7 +1,7 @@
 #include "Button.h"
 
 Button::~Button(){
-    //dtor
+
 }
 
 void Button::hand_input(SDL_Event *e){

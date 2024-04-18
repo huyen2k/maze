@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 #include "common.h"
-#define start_img "img/menu.png"
+#define main_img "img/menu/menu.png"
 #define gameover_img "img/gameover.png"
 #define gamewin_img "img/gamewin.png"
 

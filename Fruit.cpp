@@ -11,7 +11,7 @@ Fruit::~Fruit(){
     Tex = nullptr;
 }
 
-void pre_image(){
+void Fruit::pre_image(SDL_Renderer* screen){
     for(int i = 0; i < IMG_WIDTH; i += FRUIT_WIDTH)
     for(int j = 0; j < IMG_HEIGHT; j += FRUIT_HEIGHT){
         SDL_Rect tmp;
@@ -20,6 +20,9 @@ void pre_image(){
         tmp.w = FRUIT_WIDTH;
         tmp.h = FRUIT_HEIGHT;
         list_food.push_back(tmp);
+    }
+    if(!LoadImage(src_img, screen)){
+        printf("Have error with image in fruit %s\n", SDL_GetError());
     }
 }
 
@@ -38,9 +41,7 @@ bool Fruit::LoadImage(std::string path, SDL_Renderer* screen){
 }
 
 void Fruit::render_img(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
-    if(!LoadImage(src_img, screen)){
-        printf("Have error with image in fruit %s\n", SDL_GetError());
-    }
+
     SDL_Rect renderQuad = wall[x][y];
 
     //Render to screen

@@ -20,12 +20,26 @@ int cnt_change_maze;
 bool game_start;
 bool game_has_food = 0;
 int score;
+Fruit food;
 
 // x -> row
 // y -> cols
 
 vector<int> list_choose_food;
 vector<ii> list_road;
+
+SDL_Texture* loadimg(std::string path, SDL_Renderer* screen){
+    SDL_Texture* new_texture = nullptr;
+
+    SDL_Surface* load_surface = IMG_Load(path.c_str());
+
+    if(load_surface != nullptr){
+        SDL_SetColorKey(load_surface, SDL_TRUE, SDL_MapRGB(load_surface->format, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B));
+        new_texture = SDL_CreateTextureFromSurface(screen, load_surface);
+        SDL_FreeSurface(load_surface);
+    }
+    return new_texture;
+}
 
 void change_size(int round_in){
     srand(time(0));
@@ -63,7 +77,7 @@ void change_size(int round_in){
         yy += rect_height[round_in];
     }
 
-    pre_image();
+    food.pre_image(g_render);
     mt19937 rng;
     rng.seed(time(0));
     list_choose_food.clear();
@@ -144,6 +158,9 @@ void fillscreen(SDL_Renderer* screen){
                 SDL_RenderFillRect(screen, &wall[i][j]);
                 continue;
             }
+//            SDL_Texture *Tex = loadimg("img/16px/wall.png", screen);
+//            SDL_RenderCopy(screen, Tex, NULL, &wall[i][j]);
+//            SDL_DestroyTexture(Tex);
             SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
             SDL_RenderFillRect(g_render, &wall[i][j]);
        }
@@ -162,7 +179,6 @@ void fillscreen(SDL_Renderer* screen){
     for(int i = 1; i < cntheight - 1; i ++)
         for(int j = 1; j < cntwidth - 1; j ++)
         if(has_food[i][j].first){
-            Fruit food;
             food.render_img(screen, i, j, &list_food[has_food[i][j].second]);
         }
 

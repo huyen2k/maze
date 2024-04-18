@@ -6,17 +6,21 @@ class Button
 {
     public:
         //init value
-        Button(int x, int y, int width, int height){
-            Rect = {x, y, width, height};
+        Button(std::string path_, SDL_Rect rect_){
+            Rect = rect_;
+            path = path_;
             check_enter = 0;
+            Tex = nullptr;
         };
         //deallocated memory
         ~Button();
 
-        //Renders texture at given point
-        void render(SDL_Renderer* screen);
+        bool LoadImage(std::string path, SDL_Renderer* screen);
 
-        void hand_input(SDL_Event *e);
+        //Renders texture
+        void render(SDL_Renderer *screen, SDL_Rect dsrect);
+
+        void hand_input(SDL_Event *e, SDL_Renderer* screen);
 
         //Gets image dimensions
         int get_postion_x(){return Rect.x;};
@@ -27,12 +31,16 @@ class Button
                 color_button[i] = color[i];
         };
 
+        SDL_Texture* getTex(){return Tex; };
+
         SDL_Rect *get_Rect(){return &Rect;};
 
         bool check_enter;
+        std::string path;
 
     private:
         SDL_Rect Rect;
+        SDL_Texture* Tex;
         int color_button[4];
 };
 

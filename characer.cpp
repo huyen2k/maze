@@ -29,9 +29,7 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
 }
 
 void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
-    if(!LoadImage(frame_img[type], screen)){
-        printf("Have error with image %s\n", SDL_GetError());
-    }
+
     SDL_Rect renderQuad = wall[x][y];
 
     //Render to screen
@@ -57,7 +55,7 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     }
 }
 
-void characer::handinput(SDL_Event e){
+void characer::handinput(SDL_Event e, SDL_Renderer* screen){
     // do di theo bang 2D nen current_x -> row
     // do di theo bang 2D nen current_y -> col
     int ktype = -1;
@@ -80,6 +78,10 @@ void characer::handinput(SDL_Event e){
                 ktype = 1;
                 break;
         }
+    }
+
+    if(!LoadImage(frame_img[type], screen)){
+        printf("Have error with image %s\n", SDL_GetError());
     }
 
     handrun(ktype);

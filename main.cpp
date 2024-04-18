@@ -24,6 +24,7 @@ int main(int argc, char ** argv)
         score = 0;
 
         Score scr;
+
         SDL_Event e;
 
         while(!round){
@@ -38,10 +39,11 @@ int main(int argc, char ** argv)
             while(!quit){
                 while(SDL_PollEvent(&e) != 0){
                     if(e.type == SDL_QUIT){
-                        quit = 1, round = 1;
-                        break;
+                        quitSDL();
+                        return 0;
                     }
-                    main_character.handinput(e);
+                    main_character.handinput(e, g_render);
+
                 }
 
                 {
@@ -63,8 +65,8 @@ int main(int argc, char ** argv)
             if(round) break;
         }
 
-        bool ok = update_gameover(g_render);
-        if(!ok)break;
+//        bool ok = update_gameover(g_render);
+//        if(!ok)break;
     }
     quitSDL();
     return 0;

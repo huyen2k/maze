@@ -38,13 +38,15 @@
 		<Unit filename="Button.h" />
 		<Unit filename="Fruit.cpp" />
 		<Unit filename="Fruit.h" />
-		<Unit filename="Text.cpp" />
-		<Unit filename="Text.h" />
+		<Unit filename="Score.cpp" />
+		<Unit filename="Score.h" />
 		<Unit filename="characer.cpp" />
 		<Unit filename="characer.h" />
 		<Unit filename="common.cpp" />
 		<Unit filename="common.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
 		<Unit filename="tutorial.txt" />
 		<Extensions />
 	</Project>

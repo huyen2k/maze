@@ -40,7 +40,7 @@ class characer
 
         void runAnimation(SDL_Renderer* screen, SDL_Event event);
 
-        void handinput(SDL_Event e);
+        void handinput(SDL_Event e, SDL_Renderer* screen);
 
         void handrun(int type);
 

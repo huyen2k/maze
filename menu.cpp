@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "Button.h"
+#include "Score.h"
 
 menu::~menu()
 {
@@ -58,53 +59,31 @@ bool update_start(SDL_Renderer* screen){
     return 1;
 }
 
-//bool update_gameover(SDL_Renderer* screen){
-//
-//    menu mm(gameover_img);
-//    Button playagain_button(185 + 52, 260 + 170, 129, 40);
-//    Button quit_button(185 + 292, 260 + 170, 58, 40);
-//
-//    SDL_Event e;
-//    int quit = 0;
-//    while(!quit){
-//        while(SDL_PollEvent(&e) != 0){
-//            if(e.type == SDL_QUIT){
-//                return 0;
-//            }
-//            playagain_button.hand_input(&e);
-//            if(playagain_button.check_enter) return 1;
-//            quit_button.hand_input(&e);
-//            if(quit_button.check_enter) return 0;
-//        }
-//        mm.render(g_render, 185, 260);
-//
-//        SDL_RenderPresent(g_render);
-//    }
-//    return 1;
-//}
-//
-//bool update_gamewin(SDL_Renderer* screen){
-//
-//    menu mm(gamewin_img);
-//    Button playagain_button(185 + 52, 260 + 170, 129, 40);
-//    Button quit_button(185 + 292, 260 + 170, 58, 40);
-//
-//    SDL_Event e;
-//    int quit = 0;
-//    while(!quit){
-//        while(SDL_PollEvent(&e) != 0){
-//            if(e.type == SDL_QUIT){
-//                return 0;
-//            }
-//            playagain_button.hand_input(&e);
-//            if(playagain_button.check_enter) return 1;
-//            quit_button.hand_input(&e);
-//            if(quit_button.check_enter) return 0;
-//        }
-//        mm.render(g_render, 185, 260);
-//
-//        SDL_RenderPresent(g_render);
-//    }
-//    return 1;
-//}
-//
+bool update_gameover(SDL_Renderer* screen){
+
+    SDL_Rect playagain_rect = {295, 390, 200, 80};
+    Button playagain_button("img/menu/playagain", playagain_rect);
+
+    SDL_Event e;
+    int quit = 0;
+    menu mm(gameover_img);
+    if(!mm.LoadImage(screen)){
+        printf("Have error with image in menu %s\n", SDL_GetError());
+    }
+    Score srcdes(40);
+    while(!quit){
+        while(SDL_PollEvent(&e) != 0){
+            if(e.type == SDL_QUIT){
+                return 0;
+            }
+            playagain_button.hand_input(&e, g_render);
+            if(playagain_button.check_enter) return 1;
+        }
+        mm.render(g_render, -5, -3);
+        srcdes.render_number(g_render, 430, 335, score);
+        playagain_button.render(g_render, playagain_rect);
+        SDL_RenderPresent(g_render);
+    }
+    return 1;
+}
+

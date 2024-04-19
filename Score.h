@@ -6,7 +6,7 @@
 class Score
 {
     public:
-        Score();
+        Score(int sz_);
         ~Score();
 
         bool LoadImage(std::string path, SDL_Renderer* screen);
@@ -16,6 +16,7 @@ class Score
         void render_number(SDL_Renderer* screen, int x, int y, int score);
 
     private:
+        int sz;
         SDL_Texture* Tex;
         int n_width, n_height;
 };

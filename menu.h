@@ -2,8 +2,7 @@
 #define MENU_H
 #include "common.h"
 #define main_img "img/menu/menu.png"
-#define gameover_img "img/gameover.png"
-#define gamewin_img "img/gamewin.png"
+#define gameover_img "img/menu/gameover.png"
 
 class menu
 {

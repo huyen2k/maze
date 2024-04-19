@@ -182,8 +182,12 @@ void fillscreen(SDL_Renderer* screen){
             food.render_img(screen, i, j, &list_food[has_food[i][j].second]);
         }
 
-    SDL_SetRenderDrawColor(screen, color_des[0], color_des[1], color_des[2], color_des[3]);
-    SDL_RenderFillRect(screen, &wall[endgame.first][endgame.second]);
+    SDL_Texture *Tex = loadimg("img/menu/redflag.png", screen);
+    SDL_RenderCopy(screen, Tex, NULL, &wall[endgame.first][endgame.second]);
+    SDL_DestroyTexture(Tex);
+
+//    SDL_SetRenderDrawColor(screen, color_des[0], color_des[1], color_des[2], color_des[3]);
+//    SDL_RenderFillRect(screen, &wall[endgame.first][endgame.second]);
 
 }
 

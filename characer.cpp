@@ -15,6 +15,8 @@ characer::~characer(){
 }
 
 bool characer::LoadImage(std::string path, SDL_Renderer* screen){
+    SDL_DestroyTexture(Texture_);
+    Texture_ = NULL;
     SDL_Texture* new_texture = nullptr;
 
     SDL_Surface* load_surface = IMG_Load(path.c_str());

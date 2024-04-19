@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713520830 source:f:\game sdl\maze\main.cpp
+1713520832 source:f:\game sdl\maze\main.cpp
 	"common.h"
 	"characer.h"
 	"Button.h"
@@ -8,27 +8,27 @@
 	"Oneplayer.h"
 	"Twoplayer.h"
 
-1713531824 f:\game sdl\maze\common.h
+1713531826 f:\game sdl\maze\common.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 	<bits/stdc++.h>
 
-1713531758 source:f:\game sdl\maze\common.cpp
+1713531760 source:f:\game sdl\maze\common.cpp
 	"common.h"
 	"Fruit.h"
 
-1713515725 source:f:\game sdl\maze\characer.cpp
+1713550000 source:f:\game sdl\maze\characer.cpp
 	"characer.h"
 
-1713514098 f:\game sdl\maze\characer.h
+1713514100 f:\game sdl\maze\characer.h
 	"common.h"
 
-1713461992 source:f:\game sdl\maze\button.cpp
+1713461994 source:f:\game sdl\maze\button.cpp
 	"Button.h"
 
-1713114353 f:\game sdl\maze\button.h
+1713114354 f:\game sdl\maze\button.h
 	"common.h"
 
 1711634107 source:f:\game sdl\maze\ghost.cpp
@@ -53,47 +53,47 @@
 1712695040 f:\game sdl\maze\text.h
 	"common.h"
 
-1713461945 source:f:\game sdl\maze\fruit.cpp
+1713461946 source:f:\game sdl\maze\fruit.cpp
 	"Fruit.h"
 
-1713290338 f:\game sdl\maze\fruit.h
+1713290340 f:\game sdl\maze\fruit.h
 	"common.h"
 
-1713530816 f:\game sdl\maze\menu.h
+1713530818 f:\game sdl\maze\menu.h
 	"common.h"
 
-1713531578 source:f:\game sdl\maze\menu.cpp
+1713531580 source:f:\game sdl\maze\menu.cpp
 	"menu.h"
 	"Button.h"
 	"Score.h"
 
-1713463787 f:\game sdl\maze\score.h
+1713463788 f:\game sdl\maze\score.h
 	"common.h"
 
-1713495114 source:f:\game sdl\maze\score.cpp
+1713495116 source:f:\game sdl\maze\score.cpp
 	"Score.h"
 
-1713519764 f:\game sdl\maze\oneplayer.h
+1713519766 f:\game sdl\maze\oneplayer.h
 	"common.h"
 	"characer.h"
 	"Button.h"
 	"menu.h"
 	"Score.h"
 
-1713530778 source:f:\game sdl\maze\oneplayer.cpp
+1713530780 source:f:\game sdl\maze\oneplayer.cpp
 	"Oneplayer.h"
 
-1713515670 source:f:\game sdl\maze\character2.cpp
+1713549998 source:f:\game sdl\maze\character2.cpp
 	"Character2.h"
 
-1713514356 f:\game sdl\maze\character2.h
+1713514358 f:\game sdl\maze\character2.h
 	"common.h"
 	"Twoplayer.h"
 
-1713530789 source:f:\game sdl\maze\twoplayer.cpp
+1713530790 source:f:\game sdl\maze\twoplayer.cpp
 	"Twoplayer.h"
 
-1713519795 f:\game sdl\maze\twoplayer.h
+1713519796 f:\game sdl\maze\twoplayer.h
 	"common.h"
 	"Button.h"
 	"characer.h"

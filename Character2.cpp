@@ -64,19 +64,19 @@ void Character2::handinput(SDL_Event e, SDL_Renderer* screen){
     int ktype = -1;
     if(e.type == SDL_KEYDOWN){
         switch (e.key.keysym.sym){
-            case SDLK_w:
+            case SDLK_UP:
                 ktype = 0;
                 type = 0;
                 break;
-            case SDLK_s:
+            case SDLK_DOWN:
                 type = 2;
                 ktype = 2;
                 break;
-            case SDLK_d:
+            case SDLK_RIGHT:
                 type = 3;
                 ktype = 3;
                 break;
-            case SDLK_a:
+            case SDLK_LEFT:
                 type = 1;
                 ktype = 1;
                 break;

@@ -33,10 +33,13 @@ void menu::render(SDL_Renderer* screen, int x, int y){
     SDL_RenderCopy(screen, Tex, NULL, &renderQuad);
 }
 
-bool update_start(SDL_Renderer* screen){
+int update_start(SDL_Renderer* screen){
 
-    SDL_Rect start_rect = {242, 463, 279, 108};
-    Button start_button("img/menu/start", start_rect);
+    SDL_Rect start_rect1 = {242, 463, 279, 108};
+    Button start_1player("img/menu/player1", start_rect1);
+
+    SDL_Rect start_rect2 = {242, 463 + 108 + 20, 279, 108};
+    Button start_2player("img/menu/player2", start_rect2);
 
     SDL_Event e;
     int quit = 0;
@@ -49,20 +52,32 @@ bool update_start(SDL_Renderer* screen){
             if(e.type == SDL_QUIT){
                 return 0;
             }
-            start_button.hand_input(&e, g_render);
-            if(start_button.check_enter) game_start = 1;
+            start_1player.hand_input(&e, g_render);
+            start_2player.hand_input(&e, g_render);
+            if(start_1player.check_enter){
+                game_start = 1;
+                return 1;
+            }
+            if(start_2player.check_enter){
+                game_start = 1;
+                return 2;
+            }
         }
         mm.render(g_render, 0, 0);
-        start_button.render(g_render, start_rect);
+        start_1player.render(g_render, start_rect1);
+        start_2player.render(g_render, start_rect2);
         SDL_RenderPresent(g_render);
     }
-    return 1;
+    return 0;
 }
 
-bool update_gameover(SDL_Renderer* screen){
+bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2){
 
-    SDL_Rect playagain_rect = {295, 390, 200, 80};
+    SDL_Rect playagain_rect = {295, 400, 200, 60};
     Button playagain_button("img/menu/playagain", playagain_rect);
+
+    menu game2score("img/menu/game2score.png");
+    game2score.I_h = 100, game2score.I_w = 390;
 
     SDL_Event e;
     int quit = 0;
@@ -70,7 +85,10 @@ bool update_gameover(SDL_Renderer* screen){
     if(!mm.LoadImage(screen)){
         printf("Have error with image in menu %s\n", SDL_GetError());
     }
-    Score srcdes(40);
+    if(!game2score.LoadImage(screen)){
+        printf("Have error with image in menu %s\n", SDL_GetError());
+    }
+    Score srcdes(30);
     while(!quit){
         while(SDL_PollEvent(&e) != 0){
             if(e.type == SDL_QUIT){
@@ -80,7 +98,14 @@ bool update_gameover(SDL_Renderer* screen){
             if(playagain_button.check_enter) return 1;
         }
         mm.render(g_render, -5, -3);
-        srcdes.render_number(g_render, 430, 335, score);
+        if(game_mode == 2){
+            game2score.render(g_render, 200, 300);
+            srcdes.render_number(g_render, 260, 354, score1);
+            srcdes.render_number(g_render, 465, 354, score2);
+        }
+        else {
+            srcdes.render_number(g_render, 430, 345, score);
+        }
         playagain_button.render(g_render, playagain_rect);
         SDL_RenderPresent(g_render);
     }

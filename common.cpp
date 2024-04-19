@@ -7,6 +7,8 @@ TTF_Font* g_font = nullptr;
 
 vector<vector<bool> > visited;
 vector<vector<bool> > has_point;
+vector<vector<bool> > has_postion1;
+vector<vector<bool> > has_postion2;
 vector<vector<pair<bool, int> > > has_food;
 vector<vector<SDL_Rect> > wall;
 
@@ -57,7 +59,11 @@ void change_size(int round_in){
 
     list_road.clear();
     has_point.clear();
-    has_point.resize(cntheight, vector<bool> (cntwidth, 0));
+    if(round_in == 2) has_point.resize(cntheight, vector<bool> (cntwidth, 1));
+    else has_point.resize(cntheight, vector<bool> (cntwidth, 0));
+
+    has_postion1.resize(cntheight, vector<bool> (cntwidth, 0));
+    has_postion2.resize(cntheight, vector<bool> (cntwidth, 0));
 
     has_food.clear();
     has_food.resize(cntheight, vector<pair<bool, int>> (cntwidth, pair<bool,int>(0, -1)));

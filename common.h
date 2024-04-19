@@ -15,15 +15,11 @@ extern TTF_Font* g_font;
 
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;
-const int BUTTON_WIDTH = SCREEN_WIDTH / 6;
-const int BUTTON_HEIGHT = SCREEN_HEIGHT / 6;
-const int BUTTON_X = 450;
-const int BUTTON_Y = 450;
 
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
-const int num_food[roundplay] = {15, 20, 25};
+const int num_food[roundplay] = {15, 20, 40};
 const int size_text[roundplay] = {36, 24, 12};
 
 const int color_wall[4] = {83, 103, 201, 1};
@@ -61,6 +57,10 @@ extern int cntwidth;
 
 extern vector<vector<bool> > visited;
 extern vector<vector<bool> > has_point;
+
+extern vector<vector<bool> > has_postion1;
+extern vector<vector<bool> > has_postion2;
+
 extern vector<vector<pair<bool, int> > > has_food;
 extern vector<vector<SDL_Rect> > wall;
 extern vector<ii> list_road;

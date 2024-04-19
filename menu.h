@@ -19,13 +19,13 @@ class menu
     void render(SDL_Renderer* screen, int x, int y);
 
     std::string path;
+    int I_w, I_h;
 
     private:
         SDL_Texture* Tex;
-        int I_w, I_h;
 };
 
-bool update_start(SDL_Renderer* screen);
-bool update_gameover(SDL_Renderer* screen);
+int update_start(SDL_Renderer* screen);
+bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2);
 
 #endif // MENU_H

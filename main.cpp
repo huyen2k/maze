@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "Score.h"
 #include "Oneplayer.h"
+#include "Twoplayer.h"
 
 using namespace std;
 
@@ -14,23 +15,19 @@ int main(int argc, char ** argv)
         return 0;
     }
     bool out = 0;
-    game_start = 0;
-    bool round = 1;
+    bool round = 0;
     while(!out){
 
-        if(!game_start){
-            if(!update_start(g_render)) break;
+        int game_mode = update_start(g_render);
+        if(game_mode == 0) break;
+        else if(game_mode == 1) {
+            Oneplayer play1;
+            play1.gameplay(g_render, round, out);
         }
-
-        score = 0;
-
-        Oneplayer play1;
-        play1.gameplay(g_render, round, out, score);
-
-        bool ok = update_gameover(g_render);
-        if(!ok)break;
-        round_in = 0;
-        round = 0;
+        else {
+            Twoplayer play2;
+            play2.gameplay(g_render, round, out);
+        }
     }
     quitSDL();
     return 0;

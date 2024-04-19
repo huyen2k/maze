@@ -1,19 +1,20 @@
-#include "characer.h"
+#include "Character2.h"
 
-SDL_Rect running_clip[total][cnt_frame];
-
-characer::characer(){
+Character2::Character2()
+{
     Texture_ = nullptr;
-    type = 3;
-    current_x = 1, current_y = 1;
+    type = 1;
+    current_x = 1, current_y = cntwidth - 2;
     dir = -1;
 }
 
-characer::~characer(){
+Character2::~Character2()
+{
     SDL_DestroyTexture(Texture_);
+    Texture_ = NULL;
 }
 
-bool characer::LoadImage(std::string path, SDL_Renderer* screen){
+bool Character2::LoadImage(std::string path, SDL_Renderer* screen){
     SDL_DestroyTexture(Texture_);
     Texture_ = NULL;
     SDL_Texture* new_texture = nullptr;
@@ -29,7 +30,7 @@ bool characer::LoadImage(std::string path, SDL_Renderer* screen){
     return Texture_ != nullptr;
 }
 
-void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
+void Character2::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
 
     SDL_Rect renderQuad = wall[x][y];
 
@@ -38,7 +39,7 @@ void characer::Render(SDL_Renderer* screen, int x, int y, SDL_Rect* clip){
     //printf("check render %s\n", screen);
 }
 
-void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
+void Character2::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
 
@@ -55,59 +56,58 @@ void characer::runAnimation(SDL_Renderer* screen, SDL_Event event){
     }
 }
 
-void characer::handinput(SDL_Event e, SDL_Renderer* screen){
+void Character2::handinput(SDL_Event e, SDL_Renderer* screen){
     // do di theo bang 2D nen current_x -> row
     // do di theo bang 2D nen current_y -> col
-    has_postion1[current_x][current_y] = 0;
+    has_postion2[current_x][current_y] = 0;
 
     int ktype = -1;
     if(e.type == SDL_KEYDOWN){
         switch (e.key.keysym.sym){
-            case SDLK_UP:
+            case SDLK_w:
                 ktype = 0;
                 type = 0;
                 break;
-            case SDLK_DOWN:
+            case SDLK_s:
                 type = 2;
                 ktype = 2;
                 break;
-            case SDLK_RIGHT:
+            case SDLK_d:
                 type = 3;
                 ktype = 3;
                 break;
-            case SDLK_LEFT:
+            case SDLK_a:
                 type = 1;
                 ktype = 1;
                 break;
         }
     }
 
-    if(!LoadImage(frame_img[type], screen)){
+    if(!LoadImage(frame_img2[type], screen)){
         printf("Have error with image %s\n", SDL_GetError());
     }
 
     handrun(ktype);
 
     if(has_food[current_x][current_y].first){
-        score += 5;
+        score2 += 5;
         check_food();
     }
     if(!has_point[current_x][current_y]){
-        score += 1;
+        score2 += 1;
         has_point[current_x][current_y] = 1;
     }
-    has_postion1[current_x][current_y] = 1;
+    has_postion2[current_x][current_y] = 1;
 
 }
 
-void characer::handrun(int type){
+void Character2::handrun(int type){
     if(type == -1) return;
 
-    current_x += step_x[type];
-    current_y += step_y[type];
+    current_x += step_x2[type];
+    current_y += step_y2[type];
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
-       current_y == 0 || current_y == cntwidth - 1 || has_postion2[current_x][current_y])
-       current_x -= step_x[type], current_y -= step_y[type];
+       current_y == 0 || current_y == cntwidth - 1 || has_postion1[current_x][current_y])
+       current_x -= step_x2[type], current_y -= step_y2[type];
 
 }
-

@@ -12,7 +12,7 @@ class Oneplayer
         Oneplayer();
         virtual ~Oneplayer();
 
-        void gameplay(SDL_Renderer* g_render, bool &round, bool &out, int &score);
+        void gameplay(SDL_Renderer* g_render, bool &round, bool &out);
 
     private:
 };

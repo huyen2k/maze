@@ -1,18 +1,19 @@
-#ifndef CHARACER_H
-#define CHARACER_H
+#ifndef CHARACTER2_H
+#define CHARACTER2_H
 #include "common.h"
+#include "Twoplayer.h"
 
-const std::string frame_img[total] = {"img/character/up.png", "img/character/left.png", "img/character/down.png", "img/character/right.png"};
+const std::string frame_img2[total] = {"img/character2/up.png", "img/character2/left.png", "img/character2/down.png", "img/character2/right.png"};
 
-const int step_x[] = {-1, 0, 1, 0};
-const int step_y[] = {0, -1, 0, 1};
+const int step_x2[] = {-1, 0, 1, 0};
+const int step_y2[] = {0, -1, 0, 1};
 extern SDL_Rect running_clip[total][cnt_frame];
 
-class characer
+class Character2
 {
     public:
-        characer();
-        ~characer();
+        Character2();
+        ~Character2();
 
         void init_data(){
             for(int type = 0; type < total; type ++){
@@ -45,14 +46,14 @@ class characer
 
         void check_food(){
             if(has_food[current_x][current_y].first){
-                has_postion1[current_x][current_y] = 0;
+                has_postion2[current_x][current_y] = 0;
                 srand(time(0));
                 int k = rand() % int(list_road.size() - 1);
                 has_food[current_x][current_y].first = 0;
                 has_food[current_x][current_y].second = -1;
                 current_x = list_road[k].first;
                 current_y = list_road[k].second;
-                has_postion1[current_x][current_y] = 1;
+                has_postion2[current_x][current_y] = 1;
             }
         }
 
@@ -62,6 +63,7 @@ class characer
 
     private:
         SDL_Texture* Texture_;
+
 };
 
-#endif // CHARACER_H
+#endif // CHARACTER2_H

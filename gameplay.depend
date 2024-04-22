@@ -62,7 +62,7 @@
 1713530818 f:\game sdl\maze\menu.h
 	"common.h"
 
-1713709647 source:f:\game sdl\maze\menu.cpp
+1713758191 source:f:\game sdl\maze\menu.cpp
 	"menu.h"
 	"Button.h"
 	"Score.h"
@@ -83,7 +83,7 @@
 1713530780 source:f:\game sdl\maze\oneplayer.cpp
 	"Oneplayer.h"
 
-1713549998 source:f:\game sdl\maze\character2.cpp
+1713756309 source:f:\game sdl\maze\character2.cpp
 	"Character2.h"
 
 1713514358 f:\game sdl\maze\character2.h

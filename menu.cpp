@@ -51,7 +51,7 @@ int update_start(SDL_Renderer* screen){
 //        if(Mix_PlayMusic(gMusic, 0) == -1)
 //            cout << "error\n";
 //        Mix_PlayMusic(gMusic, -1);
-        Mix_PlayChannel(-1, g_music, -1);
+        //Mix_PlayChannel(-1, g_music, -1);
         while(SDL_PollEvent(&e) != 0){
             if(e.type == SDL_QUIT){
                 Mix_HaltMusic();
@@ -61,14 +61,14 @@ int update_start(SDL_Renderer* screen){
             start_2player.hand_input(&e, g_render);
             if(start_1player.check_enter){
                 game_start = 1;
-                Mix_HaltMusic();
-                Mix_PauseMusic();
+                //Mix_HaltMusic();
+                //Mix_PauseMusic();
                 return 1;
             }
             if(start_2player.check_enter){
                 game_start = 1;
-                Mix_HaltMusic();
-                Mix_PauseMusic();
+                //Mix_HaltMusic();
+                //Mix_PauseMusic();
                 return 2;
             }
         }

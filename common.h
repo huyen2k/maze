@@ -12,6 +12,13 @@ using ii = pair<int, int>;
 extern SDL_Window* g_window;
 extern SDL_Renderer* g_render;
 extern TTF_Font* g_font;
+extern Mix_Music* gMusic;
+
+//The sound effects that will be used
+extern Mix_Chunk* g_eatfood;
+extern Mix_Chunk* g_eatdot;
+extern Mix_Chunk* g_music;
+extern Mix_Chunk* gLow;
 
 const int SCREEN_WIDTH = 760;
 const int SCREEN_HEIGHT = 760;

@@ -48,18 +48,27 @@ int update_start(SDL_Renderer* screen){
         printf("Have error with image in menu %s\n", SDL_GetError());
     }
     while(!quit && !game_start){
+//        if(Mix_PlayMusic(gMusic, 0) == -1)
+//            cout << "error\n";
+//        Mix_PlayMusic(gMusic, -1);
+        Mix_PlayChannel(-1, g_music, -1);
         while(SDL_PollEvent(&e) != 0){
             if(e.type == SDL_QUIT){
+                Mix_HaltMusic();
                 return 0;
             }
             start_1player.hand_input(&e, g_render);
             start_2player.hand_input(&e, g_render);
             if(start_1player.check_enter){
                 game_start = 1;
+                Mix_HaltMusic();
+                Mix_PauseMusic();
                 return 1;
             }
             if(start_2player.check_enter){
                 game_start = 1;
+                Mix_HaltMusic();
+                Mix_PauseMusic();
                 return 2;
             }
         }

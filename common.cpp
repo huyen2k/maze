@@ -4,6 +4,12 @@
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_render = nullptr;
 TTF_Font* g_font = nullptr;
+Mix_Music* gMusic = NULL;
+
+//The sound effects that will be used
+Mix_Chunk* g_eatfood = NULL;
+Mix_Chunk* g_eatdot = NULL;
+Mix_Chunk* g_music = NULL;
 
 vector<vector<bool> > visited;
 vector<vector<bool> > has_point;
@@ -45,7 +51,7 @@ SDL_Texture* loadimg(std::string path, SDL_Renderer* screen){
 
 void change_size(int round_in){
     srand(time(0));
-    rannum = rand() % 30;
+    rannum = rand() % 1000;
     begin_x = begin_y = 1;
     game_has_food = 0;
     cntheight = SCREEN_HEIGHT / rect_height[round_in];
@@ -114,7 +120,7 @@ bool initdata(){
     rannum = rand() % 30;
     bool success = 1;
 
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
+    if(SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0){
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         success = false;
     }
@@ -139,6 +145,36 @@ bool initdata(){
                     success = false;
                 }
                 g_font = TTF_OpenFont( "img/VNI-HelveB.ttf", size_text[round_in]);
+
+                if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+				{
+					printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+					success = false;
+				}
+
+                    gMusic = Mix_LoadMUS( "music/pacman_intro.wav" );
+                    if( gMusic == NULL ){
+                        printf( "Failed to load pacman_intro music! SDL_mixer Error: %s\n", Mix_GetError() );
+                        success = false;
+                    }
+                    g_music = Mix_LoadWAV( "music/pacman_beginning.wav" );
+                    if( g_music == NULL ){
+                        printf( "Failed to load pacman_beginning music! SDL_mixer Error: %s\n", Mix_GetError() );
+                        success = false;
+                    }
+                    g_eatdot = Mix_LoadWAV( "music/pacman_eatdot.wav" );
+                    if( g_eatdot == NULL )
+                    {
+                        printf( "Failed to load pacman_eatdot sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+                        success = false;
+                    }
+                    g_eatfood = Mix_LoadWAV( "music/pacman_eatfruit.wav" );
+                    if( g_eatfood == NULL )
+                    {
+                        printf( "Failed to load pacman_eatfruit sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+                        success = false;
+                    }
+
             }
         }
     }
@@ -154,6 +190,7 @@ bool inmaze(int x, int y){
 
 // has_point = 0 ? true : false
 // has_food = 0 ? false : true
+SDL_Texture *Tex = loadimg("img/menu/wall.png", g_render);
 
 void fillscreen(SDL_Renderer* screen){
 
@@ -164,9 +201,10 @@ void fillscreen(SDL_Renderer* screen){
                 SDL_RenderFillRect(screen, &wall[i][j]);
                 continue;
             }
-//            SDL_Texture *Tex = loadimg("img/16px/wall.png", screen);
+//            SDL_Texture *Tex = loadimg("img/menu/wall.png", screen);
 //            SDL_RenderCopy(screen, Tex, NULL, &wall[i][j]);
 //            SDL_DestroyTexture(Tex);
+//            Tex = NULL;
             SDL_SetRenderDrawColor( screen, color_wall[0], color_wall[1], color_wall[2], color_wall[3]);
             SDL_RenderFillRect(g_render, &wall[i][j]);
        }

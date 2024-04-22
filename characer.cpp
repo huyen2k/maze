@@ -89,10 +89,12 @@ void characer::handinput(SDL_Event e, SDL_Renderer* screen){
     handrun(ktype);
 
     if(has_food[current_x][current_y].first){
+        Mix_PlayChannel( -1, g_eatfood, 0 );
         score += 5;
         check_food();
     }
     if(!has_point[current_x][current_y]){
+        Mix_PlayChannel( -1, g_eatdot, 0 );
         score += 1;
         has_point[current_x][current_y] = 1;
     }

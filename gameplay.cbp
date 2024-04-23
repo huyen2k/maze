@@ -34,8 +34,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Button.cpp" />
+		<Unit filename="Character2.cpp" />
+		<Unit filename="Character2.h" />
+		<Unit filename="Fruit.cpp" />
+		<Unit filename="Oneplayer.cpp" />
+		<Unit filename="Score.cpp" />
 		<Unit filename="Twoplayer.cpp" />
+		<Unit filename="characer.cpp" />
+		<Unit filename="characer.h" />
+		<Unit filename="common.cpp" />
+		<Unit filename="common.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

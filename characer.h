@@ -43,19 +43,6 @@ class characer
             return (current_x == endgame.first && current_y == endgame.second);
         };
 
-        void check_food(){
-            if(has_food[current_x][current_y].first){
-                has_postion1[current_x][current_y] = 0;
-                srand(time(0));
-                int k = rand() % int(list_road.size() - 1);
-                has_food[current_x][current_y].first = 0;
-                has_food[current_x][current_y].second = -1;
-                current_x = list_road[k].first;
-                current_y = list_road[k].second;
-                has_postion1[current_x][current_y] = 1;
-            }
-        }
-
         int type;
         int current_x, current_y;
         int dir;

@@ -16,10 +16,13 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
 
     while(!round){
 
+        int start_time = SDL_GetTicks();
+        int time_out = max_time[round_in];
         bool quit = 0;
         change_size(round_in);
 
         Score scr(rect_width[round_in]);
+        Score time(rect_width[round_in]);
         characer character1;
         character1.init_data();
         maze(g_render);
@@ -33,6 +36,12 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
                 character1.handinput(e, g_render);
 
             }
+
+            if(time_out == 0){
+                round = 1;
+                break;
+            }
+
             if(round) break;
 
             {
@@ -42,12 +51,15 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
                 scr.render(g_render, 0, 0);
                 scr.render_number(g_render, rect_width[round_in] * 3, 0, score);
                 character1.runAnimation(g_render, e);
+
+                int time_now = (SDL_GetTicks() - start_time) % 100;
+                if(!time_now) time_out --;
+                time.render_number(g_render, rect_width[round_in] * (cntwidth / 2), 0, time_out);
             }
 
             SDL_RenderPresent(g_render);
 
             if(character1.check_win()) quit = 1;
-            character1.check_food();
         }
         round_in ++;
         if(round_in == 3) round = 1;

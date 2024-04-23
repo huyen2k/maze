@@ -49,6 +49,9 @@ SDL_Texture* loadimg(std::string path, SDL_Renderer* screen){
     return new_texture;
 }
 
+// has_food.first: has food or not
+// has_food.second: type of food
+
 void change_size(int round_in){
     srand(time(0));
     rannum = rand() % 1000;
@@ -90,13 +93,12 @@ void change_size(int round_in){
     }
 
     food.pre_image(g_render);
-    mt19937 rng;
-    rng.seed(time(0));
+    srand(time(0));
     list_choose_food.clear();
-    int cnt = 0;
+    int cnt = rand() % 40;
     for(int i = 0; i < num_food[round_in]; i ++){
-        rng.seed(cnt ++);
-        int k = rng() % int(list_food.size() - 1);
+        srand(cnt ++);
+        int k = rand() % int(list_food.size() - 1);
         list_choose_food.push_back(k);
     }
 }

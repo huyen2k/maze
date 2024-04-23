@@ -26,8 +26,9 @@ const int SCREEN_HEIGHT = 760;
 const int roundplay = 3;
 const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
-const int num_food[roundplay] = {15, 20, 40};
+const int num_food[roundplay] = {13, 25, 40};
 const int size_text[roundplay] = {36, 24, 12};
+const int max_time[roundplay] = {60, 80, 120};
 
 const int color_wall[4] = {83, 103, 201, 1};
 const int color_road[4] = {5, 5, 5, 1};

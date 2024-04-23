@@ -89,9 +89,17 @@ void characer::handinput(SDL_Event e, SDL_Renderer* screen){
     handrun(ktype);
 
     if(has_food[current_x][current_y].first){
+        has_point[current_x][current_y] = 1;
         Mix_PlayChannel( -1, g_eatfood, 0 );
         score += 5;
-        check_food();
+        has_postion1[current_x][current_y] = 0;
+        srand(time(0));
+        int k = rand() % int(list_road.size() - 1);
+        has_food[current_x][current_y].first = 0;
+        has_food[current_x][current_y].second = -1;
+        current_x = list_road[k].first;
+        current_y = list_road[k].second;
+        has_postion1[current_x][current_y] = 1;
     }
     if(!has_point[current_x][current_y]){
         Mix_PlayChannel( -1, g_eatdot, 0 );
@@ -108,7 +116,7 @@ void characer::handrun(int type){
     current_x += step_x[type];
     current_y += step_y[type];
     if(!visited[current_x][current_y] || current_x == 0 || current_x == cntheight - 1 ||
-       current_y == 0 || current_y == cntwidth - 1 || has_postion2[current_x][current_y])
+       current_y == 0 || current_y == cntwidth - 1)
        current_x -= step_x[type], current_y -= step_y[type];
 
 }

@@ -16,7 +16,7 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
 
     while(!round){
 
-        int start_time = SDL_GetTicks();
+        int _time = 0;
         int time_out = max_time[round_in];
         bool quit = 0;
         change_size(round_in);
@@ -37,6 +37,7 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
 
             }
 
+            _time ++;
             if(time_out == 0){
                 round = 1;
                 break;
@@ -52,7 +53,7 @@ void Oneplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
                 scr.render_number(g_render, rect_width[round_in] * 3, 0, score);
                 character1.runAnimation(g_render, e);
 
-                int time_now = (SDL_GetTicks() - start_time) % 100;
+                int time_now = (_time) % 100;
                 if(!time_now) time_out --;
                 time.render_number(g_render, rect_width[round_in] * (cntwidth / 2), 0, time_out);
             }

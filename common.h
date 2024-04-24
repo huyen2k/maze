@@ -28,12 +28,11 @@ const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
 const int num_food[roundplay] = {13, 25, 40};
 const int size_text[roundplay] = {36, 24, 12};
-const int max_time[roundplay] = {60, 80, 120};
+const int max_time[roundplay] = {30, 60, 100};
 
-const int color_wall[4] = {83, 103, 201, 1};
-const int color_road[4] = {5, 5, 5, 1};
-const int color_des[4] = {242, 2, 49, 1}; // mau cua dich den
-const int color_point[4] = {220, 215, 171, 1};
+const int color_wall[4] = {240, 198, 161, 1};
+const int color_road[4] = {240, 198, 161, 1};
+const int color_point[4] = {75, 91, 171, 1};
 const int color_text[4] = {0, 0, 0, 0};
 const int color_button_up[] = {255, 255, 255, 255};
 const int color_button_down[] = {0, 0, 0, 1};

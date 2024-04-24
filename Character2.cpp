@@ -43,14 +43,14 @@ void Character2::runAnimation(SDL_Renderer* screen, SDL_Event event){
     if(event.type == SDL_QUIT) return ;
     static int frame = 0;
 
-    SDL_Rect* currentClip = &running_clip[type][ frame / 4 ]; // Divide by cnt_frame + 1 so the image runs circularly
+    SDL_Rect* currentClip = &running_clip[type][ frame / 9 ]; // Divide by cnt_frame + 1 so the image runs circularly
     Render(screen, current_x, current_y, currentClip);
 
     //Go to next frame
     ++frame;
 
     //Cycle animation
-    if(frame / 4 >= cnt_frame)
+    if(frame / 9 >= cnt_frame)
     {
         frame = 0;
     }

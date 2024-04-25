@@ -28,9 +28,9 @@ const int rect_width[roundplay] = {36, 26, 16};
 const int rect_height[roundplay] = {36, 26, 16};
 const int num_food[roundplay] = {13, 25, 40};
 const int size_text[roundplay] = {36, 24, 12};
-const int max_time[roundplay] = {30, 60, 100};
+const int max_time[roundplay] = {20, 40, 80};
 
-const int color_wall[4] = {240, 198, 161, 1};
+const int color_wall[4] = {186, 97, 86, 1};
 const int color_road[4] = {240, 198, 161, 1};
 const int color_point[4] = {75, 91, 171, 1};
 const int color_text[4] = {0, 0, 0, 0};

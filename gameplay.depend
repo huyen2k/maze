@@ -8,7 +8,7 @@
 	"Oneplayer.h"
 	"Twoplayer.h"
 
-1713969412 f:\game sdl\maze\common.h
+1714059421 f:\game sdl\maze\common.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -59,10 +59,10 @@
 1713290340 f:\game sdl\maze\fruit.h
 	"common.h"
 
-1713530818 f:\game sdl\maze\menu.h
+1714030809 f:\game sdl\maze\menu.h
 	"common.h"
 
-1713758191 source:f:\game sdl\maze\menu.cpp
+1714034051 source:f:\game sdl\maze\menu.cpp
 	"menu.h"
 	"Button.h"
 	"Score.h"
@@ -80,7 +80,7 @@
 	"menu.h"
 	"Score.h"
 
-1713969205 source:f:\game sdl\maze\oneplayer.cpp
+1714034076 source:f:\game sdl\maze\oneplayer.cpp
 	"Oneplayer.h"
 
 1713945286 source:f:\game sdl\maze\character2.cpp
@@ -90,7 +90,7 @@
 	"common.h"
 	"Twoplayer.h"
 
-1713969317 source:f:\game sdl\maze\twoplayer.cpp
+1714032852 source:f:\game sdl\maze\twoplayer.cpp
 	"Twoplayer.h"
 
 1713519796 f:\game sdl\maze\twoplayer.h

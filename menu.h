@@ -26,6 +26,6 @@ class menu
 };
 
 int update_start(SDL_Renderer* screen);
-bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2);
+bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2, bool game_win);
 
 #endif // MENU_H

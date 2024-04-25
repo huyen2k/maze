@@ -16,6 +16,7 @@ void Twoplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
     SDL_Event e;
     score2 = 0;
     score = 0;
+    bool game_win = 0;
     while(!round){
 
         int _time = 0;
@@ -73,18 +74,21 @@ void Twoplayer::gameplay(SDL_Renderer* g_render, bool &round, bool &out){
             if(character1.check_win()){
                 quit = 1;
                 score += 50;
+                game_win = 1;
             }
             else if(character2.check_win()){
                 quit = 1;
                 score2 += 50;
+                game_win = 1;
             }
+            else game_win = 0;
         }
         round_in ++;
         if(round_in == 3) round = 1;
         if(round) break;
     }
 
-    if(!update_gameover(g_render, 2, score, score2)) out = 1;
+    if(!update_gameover(g_render, 2, score, score2, game_win)) out = 1;
     else {
         round_in = 0;
         round = 0;

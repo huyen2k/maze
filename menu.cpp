@@ -80,10 +80,13 @@ int update_start(SDL_Renderer* screen){
     return 0;
 }
 
-bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2){
+bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2, bool game_win){
 
-    SDL_Rect playagain_rect = {295, 400, 200, 60};
+    SDL_Rect playagain_rect = {195, 400, 200, 60};
     Button playagain_button("img/menu/playagain", playagain_rect);
+
+    SDL_Rect quit_rect = {395, 400, 200, 60};
+    Button quit_button("img/menu/quit", quit_rect);
 
     menu game2score("img/menu/game2score.png");
     game2score.I_h = 100, game2score.I_w = 390;
@@ -91,7 +94,11 @@ bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2
     SDL_Event e;
     int quit = 0;
     menu mm(gameover_img);
+    menu mmm("img/menu/game_win.png");
     if(!mm.LoadImage(screen)){
+        printf("Have error with image in menu %s\n", SDL_GetError());
+    }
+    if(!mmm.LoadImage(screen)){
         printf("Have error with image in menu %s\n", SDL_GetError());
     }
     if(!game2score.LoadImage(screen)){
@@ -105,8 +112,13 @@ bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2
             }
             playagain_button.hand_input(&e, g_render);
             if(playagain_button.check_enter) return 1;
+
+            quit_button.hand_input(&e, g_render);
+            if(quit_button.check_enter) return 0;
         }
-        mm.render(g_render, -5, -3);
+
+        if(!game_win) mm.render(g_render, -5, -3);
+        else mmm.render(g_render, -5, -3);
         if(game_mode == 2){
             game2score.render(g_render, 200, 300);
             srcdes.render_number(g_render, 260, 354, score1);
@@ -116,6 +128,7 @@ bool update_gameover(SDL_Renderer* screen, int game_mode, int score1, int score2
             srcdes.render_number(g_render, 430, 345, score);
         }
         playagain_button.render(g_render, playagain_rect);
+        quit_button.render(g_render, quit_rect);
         SDL_RenderPresent(g_render);
     }
     return 1;

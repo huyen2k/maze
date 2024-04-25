@@ -44,5 +44,6 @@
 - Thư viện đồ họa SDL: [Lazy Foo' Productions - Beginning Game Programming v2.0](https://lazyfoo.net/tutorials/SDL/)
 - Thuật toán sinh mê cung: [Maze Generation Algorithms | Visualize It](https://visualize-it.github.io/maze_generation/simulation.html)
 - Đồ họa: https://itch.io/game-assets 
-**Video:**
+
+**Video hướng dẫn tải và chơi game:** https://youtu.be/tickZ62vPTY
 
